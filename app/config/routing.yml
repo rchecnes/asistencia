@@ -1,5 +1,5 @@
 rch_user:
-    resource: "@RCHUserBundle/Resources/config/routing.yml"
+    resource: "@ChecUserBundle/Resources/config/routing.yml"
     prefix:   /
 
 app:

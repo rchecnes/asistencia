@@ -1,6 +1,6 @@
 <?php
 
-namespace RCH\UserBundle\Repository;
+namespace Chec\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
