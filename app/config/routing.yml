@@ -1,6 +1,7 @@
 rch_user:
-    resource: "@ChecUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@ChecUserBundle/Controller"
+    type: annotation
+    prefix: /
 
 app:
     resource: "@AppBundle/Controller/"
