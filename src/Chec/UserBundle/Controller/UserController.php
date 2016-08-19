@@ -17,12 +17,27 @@ class UserController extends Controller
     	
     	$em = $this->getDoctrine()->getManager();
 
-    	$users = $em->getRepository("ChecUserBundle:User")->findAll();
+    	/*$users = $em->getRepository("ChecUserBundle:User")->findAll();
 
     	$data['title'] = "Lista de Usuario";
     	$data['users'] = $users;
 
-    	return $this->render('ChecUserBundle:User:index.html.twig',$data);
+    	return $this->render('ChecUserBundle:User:index.html.twig',$data);*/
+
+        //$em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT u FROM ChecUserBundle:User u";
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/
+        );
+
+        // parameters to template
+        return $this->render('ChecUserBundle:User:index.html.twig', array('pagination' => $pagination,
+            'title'=>'Listado de Usuarios'));
     }
 
     /**
