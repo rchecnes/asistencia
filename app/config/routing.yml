@@ -1,3 +1,7 @@
+chec_user_user:
+    resource: "@ChecUserBundle/Controller/UserController.php"
+    type:     annotation
+
 rch_user:
     resource: "@ChecUserBundle/Controller"
     type: annotation
