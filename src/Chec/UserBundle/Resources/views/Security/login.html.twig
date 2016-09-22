@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::login.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -7,23 +7,31 @@
 {% block body %}
 	{{ parent() }}
 
-    <div class="container">
-		<form action="{{ path('chec_user_login_check') }}" method="post" class="form-signin">
-			<h2 class="form-signin-heading">Loigin</h2>
+<form action="{{ path('chec_user_login_check') }}" method="post" class="wpl-track-me"  name="loginform" id="loginform">
+	
+    <h1 class="title-login">Login</h1>
+    {% if error %}
+    <br><div class="alert alert-danger">{{error.messagekey}}</div>
+    {% endif %}
+    
+    <p class="login-username">
+      <label for="username" class="sr-only">{{ 'Username'|trans }}:</label>
+      <input type="text" id="user_name" class="form-control input" name="_user_name" value="{{ last_username }}" size="20" placeholder="Username" required autofocus />
+    </p>
 
-            {% if error %}
-            <div>{{error.messagekey}}</div>
-            {% endif %}
+    <p class="login-password">
+	    <label for="password" class="sr-only">Password:</label>
+	    <input type="password" id="password" class="form-control input" name="_password" size="20" placeholder="Password" required />
+    </p>
 
-		    <label for="username" class="sr-only">{{ 'Username'|trans }}:</label>
-		    <input type="text" id="user_name" class="form-control" name="_user_name" value="{{ last_username }}" placeholder="Username" required autofocus />
+    <p class="login-remember">
+        <label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label>
+    </p>
 
-		    <label for="password" class="sr-only">Password:</label>
-		    <input type="password" id="password" class="form-control" name="_password" placeholder="Password" required />
-		    
-		    <input type="hidden" name="_target_path" value="user_index" />
+    <p class="login-submit">
+      <input type="hidden" name="_target_path" value="user_index" />
+      <button type="submit" class="button-primary">Sign in</button>
+    </p>
+</form>
 
-		    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
-		</form>
-    </div> <!-- /container -->
 {% endblock %}
