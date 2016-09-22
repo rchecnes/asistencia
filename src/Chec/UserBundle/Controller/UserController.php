@@ -57,7 +57,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $password = $form->get('password')->getData();
-            $encoder = $this->container->get('security.password.encoder');
+            $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $password);
 
             $user->setPassword($encoded);
@@ -152,4 +152,5 @@ class UserController extends Controller
             ->getForm()
         ;
     }
+
 }

@@ -3,6 +3,7 @@
 namespace Chec\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Chec\UserBundle\Repository\UserRepository")
  */
-class User
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var int
@@ -77,8 +78,11 @@ class User
      */
     private $create_at;
 
-
-    
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+        $this->is_active = true;
+    }
 
     /**
      * Get id
@@ -272,5 +276,59 @@ class User
     public function getCreateAt()
     {
         return $this->create_at;
+    }
+
+    public function getRoles(){
+
+        return array($this->role);
+    }
+
+    public function getSalt(){
+        return null;
+    }
+
+    public function eraseCredentials(){
+        
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->user_name,
+            $this->password,
+            $this->is_active
+        ));
+    }
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->user_name,
+            $this->password,
+            $this->is_active
+        ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->is_active;
     }
 }
