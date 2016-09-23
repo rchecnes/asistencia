@@ -11,9 +11,11 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
         <div>
             <a href="{{path('chec_user_logout')}}">Logout</a>
         </div>
+        
         <div class="container">
         {% block body %}{% endblock %}
         </div>

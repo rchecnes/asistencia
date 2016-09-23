@@ -60,7 +60,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", columnDefinition="ENUM('ROLE_ADMIN','ROLE_USER')" ,length=50)
+     * @ORM\Column(name="role", type="string", nullable=true ,columnDefinition="ENUM('ROLE_ADMIN','ROLE_USER')" ,length=50, options={"default":"ROLE_USER"})
      */
     private $role;
 
@@ -80,7 +80,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function __construct()
     {
-        $this->tasks = new ArrayCollection();
+        //$this->tasks = new ArrayCollection();
         $this->is_active = true;
     }
 
