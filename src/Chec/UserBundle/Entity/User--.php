@@ -223,28 +223,15 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set rol
+     * Get role
      *
-     * @param \UsuarioBundle\Entity\Rol $rol
-     *
-     * @return Usuario
+     * @return string 
      */
-    public function setRol(\UsuarioBundle\Entity\Rol $rol = null)
+    public function getRole()
     {
-        $this->rol = $rol;
-
-        return $this;
+        return $this->role;
     }
 
-    /**
-     * Get rol
-     *
-     * @return \UsuarioBundle\Entity\Rol
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
     /**
      * Set is_active
      *

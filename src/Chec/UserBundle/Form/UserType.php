@@ -20,7 +20,7 @@ class UserType extends AbstractType
             ->add('last_name')
             ->add('email')
             ->add('password')
-            ->add('role')
+            //->add('role')
             ->add('is_active')
             ->add('create_at', 'datetime')
         ;
