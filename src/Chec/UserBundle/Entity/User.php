@@ -27,7 +27,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="user_name", type="string", length=50)
      */
-    private $user_name;
+    private $username;
 
     /**
      * @var string
@@ -58,17 +58,17 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Role", inversedBy="user")
-     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="user")
+     * @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
      */
-    private $role;
+    private $rol;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $is_active;
+    private $isActive;
 
     /**
      * @var \DateTime
@@ -81,13 +81,13 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         //$this->tasks = new ArrayCollection();
-        $this->is_active = true;
+        $this->isActive = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,32 +95,34 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set user_name
+     * Set username
      *
-     * @param string $userName
+     * @param string $username
+     *
      * @return User
      */
-    public function setUserName($userName)
+    public function setUsername($username)
     {
-        $this->user_name = $userName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get user_name
+     * Get username
      *
-     * @return string 
+     * @return string
      */
-    public function getUserName()
+    public function getUsername()
     {
-        return $this->user_name;
+        return $this->username;
     }
 
     /**
-     * Set first_name
+     * Set firstName
      *
      * @param string $firstName
+     *
      * @return User
      */
     public function setFirstName($firstName)
@@ -131,9 +133,9 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get first_name
+     * Get firstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -141,9 +143,10 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set last_name
+     * Set lastName
      *
      * @param string $lastName
+     *
      * @return User
      */
     public function setLastName($lastName)
@@ -154,9 +157,9 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get last_name
+     * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -167,6 +170,7 @@ class User implements AdvancedUserInterface, \Serializable
      * Set email
      *
      * @param string $email
+     *
      * @return User
      */
     public function setEmail($email)
@@ -179,7 +183,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -190,6 +194,7 @@ class User implements AdvancedUserInterface, \Serializable
      * Set password
      *
      * @param string $password
+     *
      * @return User
      */
     public function setPassword($password)
@@ -202,7 +207,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get password
      *
-     * @return string 
+     * @return boolean
      */
     public function getPassword()
     {
@@ -210,68 +215,34 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set role
-     *
-     * @param string $role
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Set rol
-     *
-     * @param \UsuarioBundle\Entity\Rol $rol
-     *
-     * @return Usuario
-     */
-    public function setRol(\UsuarioBundle\Entity\Rol $rol = null)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return \UsuarioBundle\Entity\Rol
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
-    /**
-     * Set is_active
+     * Set isActive
      *
      * @param boolean $isActive
+     *
      * @return User
      */
     public function setIsActive($isActive)
     {
-        $this->is_active = $isActive;
+        $this->isActive = $isActive;
 
         return $this;
     }
 
     /**
-     * Get is_active
+     * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
     /**
-     * Set create_at
+     * Set createAt
      *
      * @param \DateTime $createAt
+     *
      * @return User
      */
     public function setCreateAt($createAt)
@@ -282,18 +253,44 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get create_at
+     * Get createAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateAt()
     {
         return $this->create_at;
     }
 
-    public function getRoles(){
+    /**
+     * Set rol
+     *
+     * @param \Chec\UserBundle\Entity\Rol $rol
+     *
+     * @return User
+     */
+    public function setRol(\Chec\UserBundle\Entity\Rol $rol = null)
+    {
+        $this->rol = $rol;
 
-        return array($this->role);
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Chec\UserBundle\Entity\Rol
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+
+    
+    public function getRoles(){
+        $roles[] = 'ROLE_ADMIN';
+        return $roles;
     }
 
     public function getSalt(){
@@ -309,9 +306,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->user_name,
+            $this->username,
             $this->password,
-            $this->is_active
+            $this->isActive
         ));
     }
     /** @see \Serializable::unserialize() */
@@ -319,9 +316,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->user_name,
+            $this->username,
             $this->password,
-            $this->is_active
+            $this->isActive
         ) = unserialize($serialized);
     }
 
@@ -342,6 +339,6 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 }

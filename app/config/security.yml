@@ -7,7 +7,7 @@ security:
         our_db_provider:
             entity:
                 class: ChecUserBundle:User
-                property: user_name
+                property: username
         
 
     firewalls:

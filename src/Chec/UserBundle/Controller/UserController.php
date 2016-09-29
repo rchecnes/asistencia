@@ -60,9 +60,9 @@ class UserController extends Controller
             $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $password);
 
-            $obj_role = $em->getRepository('ChecUserBundle:Role')->find(1);
+            $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find(1);
             $user->setPassword($encoded);
-            $user->setRole($obj_role);
+            $user->setRol($obj_rol);
             
 
             $em->persist($user);

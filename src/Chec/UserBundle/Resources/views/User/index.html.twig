@@ -17,7 +17,7 @@
 
     <table class="table table-bordered">
         <tr>
-            <td>{{knp_pagination_sortable(pagination,'Nombre Usuario', 'u.user_name')}}</td>
+            <td>{{knp_pagination_sortable(pagination,'Nombre Usuario', 'u.username')}}</td>
             <td>{{knp_pagination_sortable(pagination,'Nombre', 'u.first_name')}}</td>
             <td>{{knp_pagination_sortable(pagination,'Apellido', 'u.last_name')}}</td>
             <td>{{knp_pagination_sortable(pagination,'Email', 'u.email')}}</td>
@@ -30,7 +30,7 @@
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.role.name}}</td>
+                <td>{{user.rol.name}}</td>
                 <td> 
                     <a class="btn btn-sm btn-info" href="{{ path('user_show', { 'id': user.id }) }}">Ver</a>
                     <a class="btn btn-sm btn-success" href="{{ path('user_edit', { 'id': user.id }) }}">Editar</a>      

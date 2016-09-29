@@ -5,12 +5,12 @@ namespace Chec\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
+ * Rol
  *
- * @ORM\Table(name="role")
- * @ORM\Entity(repositoryClass="Chec\UserBundle\Repository\RoleRepository")
+ * @ORM\Table(name="rol")
+ * @ORM\Entity(repositoryClass="Chec\UserBundle\Repository\RolRepository")
  */
-class Role
+class Rol
 {
     /**
      * @var int
@@ -58,7 +58,7 @@ class Role
 
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="rol")
      */
     private $user;
 
@@ -77,7 +77,7 @@ class Role
      * Set name
      *
      * @param string $name
-     * @return Role
+     * @return Rol
      */
     public function setName($name)
     {
@@ -100,7 +100,7 @@ class Role
      * Set description
      *
      * @param string $description
-     * @return Role
+     * @return Rol
      */
     public function setDescription($description)
     {
@@ -123,7 +123,7 @@ class Role
      * Set create_at
      *
      * @param \DateTime $createAt
-     * @return Role
+     * @return Rol
      */
     public function setCreateAt($createAt)
     {
@@ -146,7 +146,7 @@ class Role
      * Set update_at
      *
      * @param \DateTime $updateAt
-     * @return Role
+     * @return Rol
      */
     public function setUpdateAt($updateAt)
     {
@@ -169,7 +169,7 @@ class Role
      * Set state
      *
      * @param boolean $state
-     * @return Role
+     * @return Rol
      */
     public function setState($state)
     {
@@ -199,7 +199,7 @@ class Role
      * Add user
      *
      * @param \Chec\UserBundle\Entity\User $user
-     * @return Role
+     * @return Rol
      */
     public function addUser(\Chec\UserBundle\Entity\User $user)
     {
