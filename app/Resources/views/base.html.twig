@@ -124,15 +124,7 @@
         </div>
 
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                try{ace.settings.loadState('main-container')}catch(e){}
-            </script>
-
-            <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-                <script type="text/javascript">
-                    try{ace.settings.loadState('sidebar')}catch(e){}
-                </script>
-
+            <div id="sidebar" class="sidebar responsive ace-save-state">
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success">
@@ -184,13 +176,37 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="">
+                        <a href="calendar.html">
+                            <i class="menu-icon fa fa-calendar"></i>
+
+                            <span class="menu-text">
+                                Calendar
+
+                                <span class="badge badge-transparent tooltip-error" title="" data-original-title="2 Important Events">
+                                    <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
+                                </span>
+                            </span>
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
+            </div>
+            <div class="main-content">
+                <div class="main-content-inner">
+                    <div class="breadcrumbs ace-save-state" id="breadcrumbs"></div>
+                    <div class="page-content">
+                        <div class="page-header"><h1>{% if title is defined %}{{title}}{% else %}Sin título{% endif %}</h1></div>
+                        <div class="full-content">
+                            {% block body %}{% endblock %}
+                        </div>                        
+                    </div>            
+                </div>        
             </div>
         </div>
         
-        <div class="container">
-        {% block body %}{% endblock %}
-        </div>
+        
         
         {% block javascripts %}
         <script type="text/javascript" src="{{asset('public/js/jquery-3.1.0.min.js')}}"></script>

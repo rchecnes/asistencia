@@ -45,14 +45,14 @@ security:
             algorithm: bcrypt
             cost: 12
 
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/user, roles: ROLE_ADMIN }
-        - { path: ^/task/index, roles: ROLE_ADMIN }
-        - { path: ^/task/add, roles: ROLE_ADMIN }
-        - { path: ^/task/edit, roles: ROLE_ADMIN }
-        - { path: ^/task/view, roles: [ROLE_ADMIN, ROLE_USER] }
-        - { path: ^/task/delete, roles: ROLE_ADMIN } 
-        - { path: ^/task/custom, roles: ROLE_USER } 
-        - { path: ^/task/process, roles: ROLE_USER }
+    #access_control:
+    #    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    #    - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
+    #    - { path: ^/user, roles: ROLE_ADMIN }
+    #    - { path: ^/task/index, roles: ROLE_ADMIN }
+    #    - { path: ^/task/add, roles: ROLE_ADMIN }
+    #    - { path: ^/task/edit, roles: ROLE_ADMIN }
+    #    - { path: ^/task/view, roles: [ROLE_ADMIN, ROLE_USER] }
+    #    - { path: ^/task/delete, roles: ROLE_ADMIN } 
+    #    - { path: ^/task/custom, roles: ROLE_USER } 
+    #    - { path: ^/task/process, roles: ROLE_USER }
