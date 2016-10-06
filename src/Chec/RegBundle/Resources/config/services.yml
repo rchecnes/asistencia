@@ -1,0 +1,4 @@
+services:
+#    chec_reg.example:
+#        class: Chec\RegBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

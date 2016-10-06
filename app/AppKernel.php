@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Chec\UserBundle\ChecUserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Chec\RegBundle\ChecRegBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
