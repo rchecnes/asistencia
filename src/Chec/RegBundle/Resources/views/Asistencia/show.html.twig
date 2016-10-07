@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Asistencia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ asistencium.id }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ asistencium.user }}</td>
+            </tr>
+            <tr>
+                <th>Ingreso</th>
+                <td>{% if asistencium.ingreso %}{{ asistencium.ingreso|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Ini_almuerzo</th>
+                <td>{% if asistencium.inialmuerzo %}{{ asistencium.inialmuerzo|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fin_almuerzo</th>
+                <td>{% if asistencium.finalmuerzo %}{{ asistencium.finalmuerzo|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Salida</th>
+                <td>{% if asistencium.salida %}{{ asistencium.salida|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Create_at</th>
+                <td>{{ asistencium.createat }}</td>
+            </tr>
+            <tr>
+                <th>Update_at</th>
+                <td>{{ asistencium.updateat }}</td>
+            </tr>
+            <tr>
+                <th>Create_user</th>
+                <td>{{ asistencium.createuser }}</td>
+            </tr>
+            <tr>
+                <th>Update_user</th>
+                <td>{{ asistencium.updateuser }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('asistencia_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

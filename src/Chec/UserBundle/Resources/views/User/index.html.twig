@@ -19,12 +19,12 @@
 
     <table class="table table-bordered">
         <tr>
-            <td>{{knp_pagination_sortable(pagination,'Nombre Usuario', 'u.username')}}</td>
-            <td>{{knp_pagination_sortable(pagination,'Nombre', 'u.first_name')}}</td>
-            <td>{{knp_pagination_sortable(pagination,'Apellido', 'u.last_name')}}</td>
-            <td>{{knp_pagination_sortable(pagination,'Email', 'u.email')}}</td>
-            <td>Rol</td>
-            <td>Acciones</td>
+            <th>{{knp_pagination_sortable(pagination,'Nombre Usuario', 'u.username')}}</th>
+            <th>{{knp_pagination_sortable(pagination,'Nombre', 'u.first_name')}}</th>
+            <th>{{knp_pagination_sortable(pagination,'Apellido', 'u.last_name')}}</th>
+            <th>{{knp_pagination_sortable(pagination,'Email', 'u.email')}}</th>
+            <th>Rol</th>
+            <th>Acciones</th>
         </tr>
         {% for user in pagination %}
             <tr>

@@ -31,21 +31,28 @@ class Asistencia
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ingreso", type="datetimetz")
+     * @ORM\Column(name="ingreso", type="time", nullable=true)
      */
     private $ingreso;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ini_almuerzo", type="datetimetz")
+     * @ORM\Column(name="ini_almuerzo", type="time", nullable=true)
      */
-    private $iniAlmuerzo;
+    private $ini_almuerzo;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="salida", type="datetimetz")
+     * @ORM\Column(name="fin_almuerzo", type="time", nullable=true)
+     */
+    private $fin_almuerzo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="salida", type="time", nullable=true)
      */
     private $salida;
 
@@ -54,34 +61,35 @@ class Asistencia
      *
      * @ORM\Column(name="create_at", type="datetimetz")
      */
-    private $createAt;
+    private $create_at;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ended_at", type="datetimetz")
+     * @ORM\Column(name="update_at", type="datetimetz")
      */
-    private $endedAt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="update_user", type="string", length=255)
-     */
-    private $updateUser;
+    private $update_at;
 
     /**
      * @var string
      *
      * @ORM\Column(name="create_user", type="string", length=255)
      */
-    private $createUser;
+    private $create_user;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="update_user", type="string", length=255)
+     */
+    private $update_user;
+
+    
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -145,7 +153,7 @@ class Asistencia
      */
     public function setIniAlmuerzo($iniAlmuerzo)
     {
-        $this->iniAlmuerzo = $iniAlmuerzo;
+        $this->ini_almuerzo = $iniAlmuerzo;
 
         return $this;
     }
@@ -157,7 +165,31 @@ class Asistencia
      */
     public function getIniAlmuerzo()
     {
-        return $this->iniAlmuerzo;
+        return $this->ini_almuerzo;
+    }
+
+    /**
+     * Set finAlmuerzo
+     *
+     * @param \DateTime $finAlmuerzo
+     *
+     * @return Asistencia
+     */
+    public function setFinAlmuerzo($finAlmuerzo)
+    {
+        $this->fin_almuerzo = $finAlmuerzo;
+
+        return $this;
+    }
+
+    /**
+     * Get finAlmuerzo
+     *
+     * @return \DateTime
+     */
+    public function getFinAlmuerzo()
+    {
+        return $this->fin_almuerzo;
     }
 
     /**
@@ -193,7 +225,7 @@ class Asistencia
      */
     public function setCreateAt($createAt)
     {
-        $this->createAt = $createAt;
+        $this->create_at = $createAt;
 
         return $this;
     }
@@ -205,55 +237,31 @@ class Asistencia
      */
     public function getCreateAt()
     {
-        return $this->createAt;
+        return $this->create_at;
     }
 
     /**
-     * Set endedAt
+     * Set updateAt
      *
-     * @param \DateTime $endedAt
+     * @param \DateTime $updateAt
      *
      * @return Asistencia
      */
-    public function setEndedAt($endedAt)
+    public function setUpdateAt($updateAt)
     {
-        $this->endedAt = $endedAt;
+        $this->update_at = $updateAt;
 
         return $this;
     }
 
     /**
-     * Get endedAt
+     * Get updateAt
      *
      * @return \DateTime
      */
-    public function getEndedAt()
+    public function getUpdateAt()
     {
-        return $this->endedAt;
-    }
-
-    /**
-     * Set updateUser
-     *
-     * @param string $updateUser
-     *
-     * @return Asistencia
-     */
-    public function setUpdateUser($updateUser)
-    {
-        $this->updateUser = $updateUser;
-
-        return $this;
-    }
-
-    /**
-     * Get updateUser
-     *
-     * @return string
-     */
-    public function getUpdateUser()
-    {
-        return $this->updateUser;
+        return $this->update_at;
     }
 
     /**
@@ -265,7 +273,7 @@ class Asistencia
      */
     public function setCreateUser($createUser)
     {
-        $this->createUser = $createUser;
+        $this->create_user = $createUser;
 
         return $this;
     }
@@ -277,7 +285,30 @@ class Asistencia
      */
     public function getCreateUser()
     {
-        return $this->createUser;
+        return $this->create_user;
+    }
+
+    /**
+     * Set updateUser
+     *
+     * @param string $updateUser
+     *
+     * @return Asistencia
+     */
+    public function setUpdateUser($updateUser)
+    {
+        $this->update_user = $updateUser;
+
+        return $this;
+    }
+
+    /**
+     * Get updateUser
+     *
+     * @return string
+     */
+    public function getUpdateUser()
+    {
+        return $this->update_user;
     }
 }
-
