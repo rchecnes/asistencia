@@ -1,26 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+<div class="table-responsive">
+
+    <p class="text-right">
+        <a class="btn btn-lg btn-success" role="button" href="{{ path('user_new') }}">
+            <i class="ace-icon fa fa-pencil-square-o"></i>
+            &nbsp;Registrar
+            
+        </a>
+    </p>
+
     <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>User</th>
-                <th>Ingreso</th>
-                <th>Ini_almuerzo</th>
-                <th>Fin_almuerzo</th>
-                <th>Salida</th>
-                <th>Create_at</th>
-                <th>Update_at</th>
-                <th>Create_user</th>
-                <th>Update_user</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
         
+        <tr>
+            <th>Nro.</th>
+            <th>Fecha</th>
+            <th>Ingreso</th>
+            <th>Ini. Almuerzo</th>
+            <th>Fin. Almuerzo</th>
+            <th>Salida</th>
+            <th>Total Horas Trabajadas</th>
+        </tr>
+        <tbody>
+        {% set contador=1 %}
+        {% for asist in pagination %}
+            <tr>
+                <td>{{contador}}</td>
+                <td>{{asist.createat|date("m/d/Y")}}</td>
+                <td>{{asist.ingreso|date('H:i:s')}}</td>
+                <td>{{asist.inialmuerzo|date('H:i:s')}}</td>
+                <td>{{asist.finalmuerzo|date('H:i:s')}}</td>
+                <td>{{asist.salida|date('H:i:s')}}</td>
+                <td>Calculo final</td>
+            </tr>
+            {% set contador=contador+1 %}
+        {% endfor %}
         </tbody>
     </table>
-
+</div>
     
 {% endblock %}

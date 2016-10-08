@@ -84,7 +84,7 @@
                         </li>
                         <li class="light-blue dropdown-modal">
                                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                        <img class="nav-user-photo" src="{{asset('public/assets/images/avatars/user.jpg')}}" alt="Jason's Photo" />
+                                        <img class="nav-user-photo" src="{{asset('public/img/foto-richard.png')}}" alt="Jason's Photo" />
                                         <span class="user-info">
                                             <small>Welcome,</small>
                                             Jason
@@ -157,38 +157,19 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
-                            <i class="menu-icon fa fa-tachometer"></i>
-                            <span class="menu-text"> Dashboard </span>
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-desktop"></i>
+                        <a href="{{path('asistencia_index')}}">
+                            <i class="menu-icon fa fa-calendar fa-4x"></i>
                             <span class="menu-text">
-                                UI &amp; Elements
-                            </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="">
-                        <a href="calendar.html">
-                            <i class="menu-icon fa fa-calendar"></i>
-
-                            <span class="menu-text">
-                                Calendar
-
-                                <span class="badge badge-transparent tooltip-error" title="" data-original-title="2 Important Events">
-                                    <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
-                                </span>
+                                Asistencia
                             </span>
                         </a>
-
+                        <b class="arrow"></b>
+                    </li>
+                    <li>
+                        <a href="{{path('user_index')}}">
+                            <i class="menu-icon fa fa-user fa-4x"></i>
+                            <span class="menu-text"> Usuarios</span>
+                        </a>
                         <b class="arrow"></b>
                     </li>
                 </ul>
