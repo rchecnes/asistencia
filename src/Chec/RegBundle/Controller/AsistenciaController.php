@@ -41,6 +41,47 @@ class AsistenciaController extends Controller
     }
 
     /**
+     * Registrar asistencia.
+     *
+     * @Route("/registrarasistencia", name="asistencia_registrar_asistencia")
+     */
+    public function gegistrarAction(Request $request)
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+
+        
+
+        $time = date('H:i:s');
+        $date = date('Y-m-d');
+
+        
+        $date = new \Datetime($date);
+        //echo $date;
+
+        $object = $em->getRepository('ChecRegBundle:Asistencia')->findBy(array('create_at'=>$date));
+
+        $asist = new Asistencia();
+
+        if (is_object($object)) {
+           echo "si existe";
+        }else{
+            $asist->setCreateAt($date);
+            $asist->setUpdateAt($date);
+            $asist->setIngreso(new \Datetime($time));
+        }
+        
+        $em->persist($asist);
+        $em->flush();
+        //$dql   = "SELECT a FROM ChecRegBundle:Asistencia a";
+        //$query = $em->createQuery($dql);
+
+        //return $this->redirect('asistencia_index');
+       
+        return $this->redirect($this->generateUrl('asistencia_index'));
+    }
+
+    /**
      * Finds and displays a Asistencia entity.
      *
      * @Route("/{id}", name="asistencia_show")

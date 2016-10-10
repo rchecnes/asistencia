@@ -50,16 +50,16 @@ class Asistencia
     private $salida;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="create_at", type="datetimetz")
+     * @ORM\Column(name="create_at", type="date")
      */
     private $create_at;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="update_at", type="datetimetz")
+     * @ORM\Column(name="update_at", type="date", nullable=true)
      */
     private $update_at;
 
