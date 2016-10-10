@@ -59,7 +59,7 @@ class Asistencia
     /**
      * @var \Date
      *
-     * @ORM\Column(name="update_at", type="date")
+     * @ORM\Column(name="update_at", type="date", nullable=true)
      */
     private $update_at;
 

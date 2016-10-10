@@ -67,21 +67,41 @@ class AsistenciaController extends Controller
 
         $asist = new Asistencia();
 
-        if (is_object($object)) {
-           echo "si existe";
+        if (isset($object[0]) ){
+            
+           
+
+           $asisexis = $em->getRepository('ChecRegBundle:Asistencia')->find($object[0]->getId());
+           
+           $ingreso = $asisexis->getIngreso();
+           $inialmuerzo = $asisexis->getIniAlmuerzo();
+           $finalmuerso = $asisexis->getFinAlmuerzo();
+
+           if ($ingreso) {
+               $asisexis->setIniAlmuerzo(new \Datetime($time));
+           }
+
+           if ($inialmuerzo) {
+               $asisexis->setFinAlmuerzo(new \Datetime($time));
+           }
+
+           if ($finalmuerso) {
+               $asisexis->setSalida(new \Datetime($time));
+           }
+
+            $em->persist($asisexis);
+            $em->flush();
         }else{
             $asist->setCreateAt($date);
             $asist->setUpdateAt($date);
             $asist->setIngreso(new \Datetime($time));
+
+            $em->persist($asist);
+            $em->flush();
         }
         
-        $em->persist($asist);
-        $em->flush();
-        //$dql   = "SELECT a FROM ChecRegBundle:Asistencia a";
-        //$query = $em->createQuery($dql);
-
-        //return $this->redirect('asistencia_index');
-       
+        
+        
         return $this->redirect($this->generateUrl('asistencia_index'));
     }
 
