@@ -26,18 +26,22 @@ class AsistenciaController extends Controller
         
         $em = $this->getDoctrine()->getManager();
 
-        $dql   = "SELECT a FROM ChecRegBundle:Asistencia a";
-        $query = $em->createQuery($dql);
+        $dateact = date('Y-m-d');
+        $dql     = "SELECT a FROM ChecRegBundle:Asistencia a ORDER BY a.create_at DESC";
+        $query   = $em->createQuery($dql);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
-            3/*limit per page*/
+            5/*limit per page*/
         );
 
+        //ld($dateact);
+
         return $this->render('ChecRegBundle:Asistencia:index.html.twig', array('pagination' => $pagination,
-            'title'=>'Listado de Asistencia'));
+            'title'=>'Listado de Asistencia',
+            'dateact'=>$dateact));
     }
 
     /**
