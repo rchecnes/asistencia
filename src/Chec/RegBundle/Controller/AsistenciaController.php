@@ -54,12 +54,9 @@ class AsistenciaController extends Controller
         
         $em = $this->getDoctrine()->getManager();
 
-        
-
         $time = date('H:i:s');
         $date = date('Y-m-d');
 
-        
         $date = new \Datetime($date);
         //echo $date;
 
@@ -73,19 +70,20 @@ class AsistenciaController extends Controller
 
            $asisexis = $em->getRepository('ChecRegBundle:Asistencia')->find($object[0]->getId());
            
-           $ingreso = $asisexis->getIngreso();
+           $ingreso     = $asisexis->getIngreso();
            $inialmuerzo = $asisexis->getIniAlmuerzo();
-           $finalmuerso = $asisexis->getFinAlmuerzo();
+           $finalmuerzo = $asisexis->getFinAlmuerzo();
+           $salida      = $asisexis->getSalida();
 
-           if ($ingreso) {
+           if ($ingreso !='' && $inialmuerzo =='' && $finalmuerzo == '') {
                $asisexis->setIniAlmuerzo(new \Datetime($time));
            }
 
-           if ($inialmuerzo) {
+           if ($inialmuerzo !='' && $finalmuerzo =='') {
                $asisexis->setFinAlmuerzo(new \Datetime($time));
            }
 
-           if ($finalmuerso) {
+           if ($finalmuerzo !='' && $salida =='') {
                $asisexis->setSalida(new \Datetime($time));
            }
 
