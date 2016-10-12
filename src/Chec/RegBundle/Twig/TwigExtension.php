@@ -23,7 +23,7 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'saludo' => new \Twig_SimpleFunction('asset', 'Functions::saludo')
+            'saludo'  => new \Twig_Function_Method($this, 'saludo'),
         );
     }
 
@@ -41,6 +41,6 @@ class TwigExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'twig_extension';
+        return 'Twig extension';
     }
 }
