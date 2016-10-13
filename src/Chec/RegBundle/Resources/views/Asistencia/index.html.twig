@@ -14,8 +14,6 @@
         <a class="btn btn-lg btn-success" role="button" href="{{ path('asistencia_registrar_asistencia') }}">
             <i class="ace-icon fa fa-calendar fa-lg"></i>
             &nbsp;Marcar
-            
-            {{ saludo("Hola") }}
         </a>
     </p>
 
@@ -34,34 +32,54 @@
         <tbody>
         {% set contador=1 %}
         {% for asist in pagination %}
+
+            {% set ingreso = '' %}
+            {% set inialmuerzo = '' %}
+            {% set finalmuerzo = '' %}
+            {% set salida = '' %}
             <tr>
-                <td>{{contador}}</td>
-                <td>
+                <td class="text-center">{{contador}}</td>
+                <td class="text-center">
                 {% if asist.createat %}
                     {{asist.createat|date("m/d/Y")}}
+                {% else %}
+                    ...
                 {% endif %}
                 </td>
-                <td>
+                <td class="text-center">
                 {% if asist.ingreso %}
                     {{asist.ingreso|date('H:i:s')}}
+                    {% set ingreso = asist.ingreso|date('H:i:s') %}
+                {% else %}
+                    ...
                 {% endif %}
                 </td>
-                <td>
+                <td class="text-center">
                 {% if asist.inialmuerzo %}
                     {{asist.inialmuerzo|date('H:i:s')}}
+                    {% set inialmuerzo = asist.inialmuerzo|date('H:i:s') %}
+                {% else %}
+                    ...
                 {% endif %}
                 </td>
-                <td>
+                <td class="text-center">
                 {% if asist.finalmuerzo %}
                     {{asist.finalmuerzo|date('H:i:s')}}
+                    {% set finalmuerzo = asist.finalmuerzo|date('H:i:s') %}
+                {% else %}
+                    ...
                 {% endif %}
                 </td>
-                <td>
+                <td class="text-center">
                 {% if asist.salida %}
                     {{asist.salida|date('H:i:s')}}
+                    {% set salida = asist.salida|date('H:i:s') %}
+                {% else %}
+                    ...
                 {% endif %}
                 </td>
-                <td>Total</td>
+                
+                <td class="text-center">{{ getAvanceHoras(ingreso, inialmuerzo, finalmuerzo, salida) }}</td>
                 <td width="20%">
                     <div class="col-xs-12">
                         

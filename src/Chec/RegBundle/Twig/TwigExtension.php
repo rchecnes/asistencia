@@ -7,23 +7,15 @@ class TwigExtension extends \Twig_Extension
 {
     public function getFilters()
     {
-        /*return array(
+        return array(
             new \Twig_SimpleFilter('price', array($this, 'priceFilter')),
-            new \Twig_SimpleFilter('saludo', array($this, 'saludo')),
-        );*/
-        /*return array(
-            'saludo' => new Twig_Filter_Function('saludo'),
-        );*/
-
-        /*return array(
-            'saludo'  => new \Twig_Filter_Method($this, 'saludo'),
-        );*/
+        );
     }
 
     public function getFunctions()
     {
         return array(
-            'saludo'  => new \Twig_Function_Method($this, 'saludo'),
+            'getAvanceHoras'  => new \Twig_Function_Method($this, 'getAvanceHoras'),
         );
     }
 
@@ -35,12 +27,48 @@ class TwigExtension extends \Twig_Extension
         return $price;
     }
 
-    public function saludo($saludo){
-        return $saludo;
+    function restarHora($horaini,$horafin)
+    {
+        $horai=substr($horaini,0,2);
+        $mini=substr($horaini,3,2);
+        $segi=substr($horaini,6,2);
+     
+        $horaf=substr($horafin,0,2);
+        $minf=substr($horafin,3,2);
+        $segf=substr($horafin,6,2);
+     
+        $ini=((($horai*60)*60)+($mini*60)+$segi);
+        $fin=((($horaf*60)*60)+($minf*60)+$segf);
+     
+        $dif=$fin-$ini;
+     
+        $difh=floor($dif/3600);
+        $difm=floor(($dif-($difh*3600))/60);
+        $difs=$dif-($difm*60)-($difh*3600);
+        return date("H:i:s",mktime($difh,$difm,$difs));
+    }
+
+    public function getAvanceHoras($inicio, $ini_almuerzo, $fin_almuerzo, $salida){
+
+        $mediodia = 0;
+        $tarde    = 0;
+
+        if ($inicio != '' && $ini_almuerzo != '') {
+            
+            $mediodia = $this->restarHora($inicio, $ini_almuerzo);
+        }
+
+        if ($fin_almuerzo != '' && $salida != '') {
+            
+            $tarde = $this->restarHora($fin_almuerzo, $salida);
+
+        }
+
+        return $tarde;
     }
 
     public function getName()
     {
-        return 'Twig extension';
+        return 'twig_extension';
     }
 }
