@@ -37,58 +37,58 @@
             {% set inialmuerzo = '' %}
             {% set finalmuerzo = '' %}
             {% set salida = '' %}
+
+            {% if asist.ingreso %}
+                {% set ingreso = asist.ingreso|date('H:i:s') %}
+            {% endif %}
+
+            {% if asist.inialmuerzo %}
+                {% set inialmuerzo = asist.inialmuerzo|date('H:i:s') %}
+            {% endif %}
+
+            {% if asist.finalmuerzo %}
+                {% set finalmuerzo = asist.finalmuerzo|date('H:i:s') %}
+            {% endif %}
+
+            {% if asist.salida %}
+                {% set salida = asist.salida|date('H:i:s') %}
+            {% endif %}
+
+            {% set avance_horas = getAvanceHoras(ingreso, inialmuerzo, finalmuerzo, salida) %}
+
+            {% set avance = getPorcentajeAvance(avance_horas)%}
+
+            {% set actual = '' %}
+
+            {% if asist.createat|date("Y-m-d") == dateact %}
+                {% set actual = 'alert alert-info' %}
+            {% endif %}
+
             <tr>
-                <td class="text-center">{{contador}}</td>
-                <td class="text-center">
+                <td class="text-center  {{actual}}">{{contador}}</td>
+                <td class="text-center  {{actual}}">
                 {% if asist.createat %}
                     {{asist.createat|date("m/d/Y")}}
                 {% else %}
                     ...
                 {% endif %}
                 </td>
-                <td class="text-center">
-                {% if asist.ingreso %}
-                    {{asist.ingreso|date('H:i:s')}}
-                    {% set ingreso = asist.ingreso|date('H:i:s') %}
-                {% else %}
-                    ...
-                {% endif %}
-                </td>
-                <td class="text-center">
-                {% if asist.inialmuerzo %}
-                    {{asist.inialmuerzo|date('H:i:s')}}
-                    {% set inialmuerzo = asist.inialmuerzo|date('H:i:s') %}
-                {% else %}
-                    ...
-                {% endif %}
-                </td>
-                <td class="text-center">
-                {% if asist.finalmuerzo %}
-                    {{asist.finalmuerzo|date('H:i:s')}}
-                    {% set finalmuerzo = asist.finalmuerzo|date('H:i:s') %}
-                {% else %}
-                    ...
-                {% endif %}
-                </td>
-                <td class="text-center">
-                {% if asist.salida %}
-                    {{asist.salida|date('H:i:s')}}
-                    {% set salida = asist.salida|date('H:i:s') %}
-                {% else %}
-                    ...
-                {% endif %}
-                </td>
+                <td class="text-center {{actual}}">{{ingreso}}</td>
+                <td class="text-center {{actual}}">{{inialmuerzo}}</td>
+                <td class="text-center {{actual}}">{{finalmuerzo}}</td>
+                <td class="text-center {{actual}}">{{salida}}</td>
                 
-                <td class="text-center">{{ getAvanceHoras(ingreso, inialmuerzo, finalmuerzo, salida) }}</td>
-                <td width="20%">
+                <td class="text-center {{actual}}">
+                {{ avance_horas }}
+                </td>
+                <td width="20%" class="text-center">
                     <div class="col-xs-12">
-                        
                         {% if asist.createat|date("Y-m-d") == dateact %}
-                        <div class="progress progress-striped pos-rel" data-percent="20%">
-                        <div class="progress-bar progress-bar-success" style="width: 20%;"></div>
+                        <div class="progress progress-striped pos-rel" data-percent="{{avance}}%">
+                        <div class="progress-bar progress-bar-success" style="width: {{avance}}%"></div>
                         {% else %}
-                        <div class="progress progress-striped pos-rel" data-percent="100%">
-                        <div class="progress-bar pos-rel" style="width: 100%;"></div>
+                        <div class="progress progress-striped pos-rel" data-percent="{{avance}}%">
+                        <div class="progress-bar pos-rel" style="width: {{avance}}%"></div>
                         {% endif %}  
                         </div>
                     </div>

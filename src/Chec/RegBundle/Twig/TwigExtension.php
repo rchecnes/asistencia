@@ -16,7 +16,10 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'getAvanceHoras'  => new \Twig_Function_Method($this, 'getAvanceHoras'),
+            'getPorcentajeAvance'  => new \Twig_Function_Method($this, 'getPorcentajeAvance'),
         );
+
+        
     }
 
     public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
@@ -27,7 +30,7 @@ class TwigExtension extends \Twig_Extension
         return $price;
     }
 
-    function restarHora($horaini,$horafin)
+    private function restarHora($horaini,$horafin)
     {
         $horai=substr($horaini,0,2);
         $mini=substr($horaini,3,2);
@@ -48,10 +51,23 @@ class TwigExtension extends \Twig_Extension
         return date("H:i:s",mktime($difh,$difm,$difs));
     }
 
+    private function parteHora( $hora ){
+        $horaSplit = explode(":", $hora);
+            if( count($horaSplit) < 3 ){
+                $horaSplit[2] = 0;
+            }
+        return $horaSplit;
+    }
+    private function SumaHoras( $time1, $time2 ){
+            list($hour1, $min1, $sec1) = $this->parteHora($time1);
+            list($hour2, $min2, $sec2) = $this->parteHora($time2);
+            return date('H:i:s', mktime( $hour1 + $hour2, $min1 + $min2, $sec1 + $sec2));
+    }
+
     public function getAvanceHoras($inicio, $ini_almuerzo, $fin_almuerzo, $salida){
 
-        $mediodia = 0;
-        $tarde    = 0;
+        $mediodia = '';
+        $tarde    = '';
 
         if ($inicio != '' && $ini_almuerzo != '') {
             
@@ -64,8 +80,45 @@ class TwigExtension extends \Twig_Extension
 
         }
 
-        return $tarde;
+        if ($mediodia != '' && $tarde == '') {
+
+            return $mediodia; 
+
+        }elseif($mediodia == '' && $tarde != ''){
+
+            return $tarde;
+
+        }elseif($mediodia != '' && $tarde != ''){
+
+            return $this->SumaHoras($mediodia, $tarde);
+
+        }
+
+        
     }
+
+    public function getPorcentajeAvance($hora){
+
+        //segundos a trabajar
+        if ($hora != '') {
+
+            list($horas_i, $minutos_i, $segundos_i) = explode(':', '08:00:00');
+            $hora_en_segundos_i = ($horas_i * 3600 ) + ($minutos_i * 60 ) + $segundos_i;
+
+            //segundos trabajados
+            list($horas_e, $minutos_e, $segundos_e) = explode(':', $hora);
+            $hora_en_segundos_e = ($horas_e * 3600 ) + ($minutos_e * 60 ) + $segundos_e;
+            
+            return number_format(($hora_en_segundos_e*100)/$hora_en_segundos_i,2);
+            
+        }else{
+
+            return 0;
+        }
+        
+    }
+
+    
 
     public function getName()
     {
