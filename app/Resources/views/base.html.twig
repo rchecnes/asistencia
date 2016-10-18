@@ -156,6 +156,15 @@
                 </div><!-- /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
+                    <li>
+                        <a href="{{path('asistencia_index')}}">
+                            <i class="menu-icon fa fa-cogs fa-4x"></i>
+                            <span class="menu-text">
+                                Configuración
+                            </span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                     <li class="active">
                         <a href="{{path('asistencia_index')}}">
                             <i class="menu-icon fa fa-calendar fa-4x"></i>
@@ -184,7 +193,7 @@
 
                         <ul class="submenu nav-hide" style="display: none;">
                             <li class="">
-                                <a href="form-elements.html">
+                                <a href="{{path('reporte_asistencia_index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Asistencia
                                 </a>
@@ -214,6 +223,8 @@
         <script type="text/javascript" src="{{asset('public/js/jquery-3.1.0.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('public/bootstrap3.3/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('public/assets/js/ace.min.js')}}"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
         {% endblock %}
     </body>
 </html>
