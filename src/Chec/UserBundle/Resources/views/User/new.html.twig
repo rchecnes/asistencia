@@ -2,8 +2,11 @@
 
 {% block body %}
     <h1>User creation</h1>
-
+    <label for="form-field-8">Nombre:</label>
+    {{ form_widget(form.user_name) }}
     {{ form_start(form) }}
+        <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+        </div>
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
