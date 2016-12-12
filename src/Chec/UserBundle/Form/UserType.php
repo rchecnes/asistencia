@@ -17,29 +17,48 @@ class UserType extends AbstractType
         $builder
             ->add('user_name','text',array(
                 'label'         => 'Nombre de Usuario',
-                'attr'          => array('class' => '','placeholder'   => ''),
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
             ->add('first_name','text',array(
                 'label'         => 'Nombres',
-                'attr'          => array('class' => '','placeholder'   => ''),
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
             ->add('last_name','text',array(
                 'label'         => 'Apellido',
-                'attr'          => array('class' => '','placeholder'   => ''),
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
             ->add('email','text',array(
                 'label'         => 'Email',
-                'attr'          => array('class' => '','placeholder'   => ''),
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
             ->add('password','text',array(
-                'label'         => 'Password',
-                'attr'          => array('class' => '','placeholder'   => ''),
+                'label'         => 'Contraseña',
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
+            ->add('password_veri','text',array(
+                'label'         => 'Repetir Contraseña',
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
+                'required'      => true,
+                'mapped'        => false,
+                'required'      => true
+            ))
+            ->add('isActive','checkbox',array(
+                'label'         => 'Estado',
+                'attr'          => array('class' => 'form-control','placeholder'   => ''),
+                'required'      => true,
+            ))
+            ->add('rol', 'entity', array(
+                'attr'          => array('class' => 'form-control'),
+                'class'         => 'ChecUserBundle:Rol',
+                'label'         => 'Rol',
+                'empty_value'   => 'Seleccionar',
+                'required'      => true           
+            ))  
             //->add('role')
             ->add('is_active')
             ->add('create_at', 'datetime')

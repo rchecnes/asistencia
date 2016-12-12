@@ -33,7 +33,7 @@ class UserController extends Controller
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
-            3/*limit per page*/
+            10/*limit per page*/
         );
 
         // parameters to template
@@ -48,7 +48,8 @@ class UserController extends Controller
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
-    {
+    {   
+
         $user = new User();
         $form = $this->createForm('Chec\UserBundle\Form\UserType', $user);
         $form->handleRequest($request);
@@ -63,17 +64,21 @@ class UserController extends Controller
             $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find(1);
             $user->setPassword($encoded);
             $user->setRol($obj_rol);
-            
+            $date = date('Y-m-d');
+            $user->setCreateAt(new \Datetime($date));
+            $user->setIsActive($form->get('isActive')->getData());
 
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            //return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('ChecUserBundle:User:new.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
+            'title'=>'Nuevo Usuario'
         ));
     }
 
@@ -107,6 +112,10 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $date = date('Y-m-d');
+            $user->setUpdateAt(new \Datetime($date));
+
             $em->persist($user);
             $em->flush();
 
@@ -117,6 +126,7 @@ class UserController extends Controller
             'user' => $user,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'title'=>'Editar Usuario'
         ));
     }
 

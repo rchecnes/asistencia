@@ -62,6 +62,10 @@ class Rol
      */
     private $user;
 
+    public function __toString()
+    {
+        return $this->getDescription();
+    }
 
     /**
      * Get id

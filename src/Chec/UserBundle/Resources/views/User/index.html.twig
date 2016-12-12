@@ -19,6 +19,7 @@
 
     <table class="table table-bordered">
         <tr>
+            <th>Nro.</th>
             <th>{{knp_pagination_sortable(pagination,'Nombre Usuario', 'u.username')}}</th>
             <th>{{knp_pagination_sortable(pagination,'Nombre', 'u.first_name')}}</th>
             <th>{{knp_pagination_sortable(pagination,'Apellido', 'u.last_name')}}</th>
@@ -26,13 +27,15 @@
             <th>Rol</th>
             <th>Acciones</th>
         </tr>
+        {%set c=1%}
         {% for user in pagination %}
             <tr>
+                <td>{{c}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.rol.name}}</td>
+                <td>{{user.rol.description}}</td>
                 <td> 
                     <a class="btn btn-sm btn-info" href="{{ path('user_show', { 'id': user.id }) }}">
                         <i class="ace-icon fa fa-eye"></i>&nbsp;Ver
@@ -45,6 +48,7 @@
                     </a>
                 </td>
             </tr>
+            {%set c=c+1%}
         {% endfor %}
     </table>
     <div class="navigation">
