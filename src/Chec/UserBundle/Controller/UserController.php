@@ -64,13 +64,16 @@ class UserController extends Controller
             $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find(1);
             $user->setPassword($encoded);
             $user->setRol($obj_rol);
-            $date = date('Y-m-d');
+            $date = date('Y-m-d h:i:s');
             $user->setCreateAt(new \Datetime($date));
-            $user->setIsActive($form->get('isActive')->getData());
+            $user->setUpdateAt(new \Datetime($date));
+            //$user->setIsActive($form->get('is_active')->getData());
 
             $em->persist($user);
             $em->flush();
 
+            $message = $this->container->getParameter('massage_sav');
+            $request->getSession()->getFlashBag()->add('success', $message);
             //return $this->redirectToRoute('user_show', array('id' => $user->getId()));
             return $this->redirectToRoute('user_index');
         }
@@ -113,13 +116,16 @@ class UserController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $date = date('Y-m-d');
+            $date = date('Y-m-d h:i:s');
             $user->setUpdateAt(new \Datetime($date));
 
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            $message = $this->container->getParameter('massage_upd');
+            $request->getSession()->getFlashBag()->add('success', $message);
+            //return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('ChecUserBundle:User:edit.html.twig', array(

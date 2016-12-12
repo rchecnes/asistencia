@@ -3,6 +3,14 @@
 
 {% block body %}
 <div class="table-responsive">
+    
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <p class="alert alert-success">{{ flashMessage }}</p>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <p class="alert alert-danger">{{ flashMessage }}</p>
+    {% endfor %}
+
     <div class="count align-right">
         Total de Registros:{{ pagination.getTotalItemCount }}
     </div>

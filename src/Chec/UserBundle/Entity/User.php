@@ -68,14 +68,21 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $is_active;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="create_at", type="datetime")
+     * @ORM\Column(name="create_at",nullable=true, type="datetime")
      */
     private $create_at;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_at",nullable=true, type="datetime")
+     */
+    private $update_at;
 
     /**
      * @ORM\OneToMany(targetEntity="Chec\RegBundle\Entity\Asistencia", mappedBy="user")
@@ -99,7 +106,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         //$this->tasks = new ArrayCollection();
-        $this->isActive = true;
+        $this->is_active = true;
     }
 
     /**
@@ -233,27 +240,27 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set isActive
+     * Set is_active
      *
-     * @param boolean $isActive
+     * @param boolean $is_active
      *
      * @return User
      */
-    public function setIsActive($isActive)
+    public function setIsActive($is_active)
     {
-        $this->isActive = $isActive;
+        $this->is_active = $is_active;
 
         return $this;
     }
 
     /**
-     * Get isActive
+     * Get is_active
      *
      * @return boolean
      */
     public function getIsActive()
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 
     /**
@@ -278,6 +285,30 @@ class User implements AdvancedUserInterface, \Serializable
     public function getCreateAt()
     {
         return $this->create_at;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return User
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->update_at = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->update_at;
     }
 
     /**
@@ -326,7 +357,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
+            $this->is_active
         ));
     }
     /** @see \Serializable::unserialize() */
@@ -336,7 +367,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
+            $this->is_active
         ) = unserialize($serialized);
     }
 
@@ -357,7 +388,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 
     /**

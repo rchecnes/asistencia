@@ -35,19 +35,19 @@ class UserType extends AbstractType
                 'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
-            ->add('password','text',array(
+            ->add('password','password',array(
                 'label'         => 'Contraseña',
                 'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
             ))
-            ->add('password_veri','text',array(
+            ->add('password_veri','password',array(
                 'label'         => 'Repetir Contraseña',
                 'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
                 'mapped'        => false,
                 'required'      => true
             ))
-            ->add('isActive','checkbox',array(
+            ->add('is_active','checkbox',array(
                 'label'         => 'Estado',
                 'attr'          => array('class' => 'form-control','placeholder'   => ''),
                 'required'      => true,
@@ -58,11 +58,7 @@ class UserType extends AbstractType
                 'label'         => 'Rol',
                 'empty_value'   => 'Seleccionar',
                 'required'      => true           
-            ))  
-            //->add('role')
-            ->add('is_active')
-            ->add('create_at', 'datetime')
-        ;
+            ));
     }
     
     /**
