@@ -47,3 +47,32 @@
     
     
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#form_user").submit(function(e) {
+            var self = this;
+            e.preventDefault();
+
+            //validamos la contraseña
+            var pass1 = $("#user_password").val();
+            var pass2 = $("#user_password_veri").val();
+
+            if (pass1 != '' && pass2 !='') {
+                if (pass1 == pass2) {
+                    self.submit();
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        });
+    })
+</script>
+{% endblock %}
+
+

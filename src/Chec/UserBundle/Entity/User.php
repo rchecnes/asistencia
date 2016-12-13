@@ -58,6 +58,13 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="password_ori", type="string", length=255, nullable=true)
+     */
+    private $password_ori;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Rol", inversedBy="user")
      * @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
      */
@@ -237,6 +244,30 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set passwordOri
+     *
+     * @param string $passwordOri
+     *
+     * @return User
+     */
+    public function setPasswordOri($passwordOri)
+    {
+        $this->password_ori = $passwordOri;
+
+        return $this;
+    }
+
+    /**
+     * Get passwordOri
+     *
+     * @return string
+     */
+    public function getPasswordOri()
+    {
+        return $this->password_ori;
     }
 
     /**
@@ -489,4 +520,6 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->asistencia_update_user;
     }
+
+    
 }

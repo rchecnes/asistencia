@@ -61,13 +61,13 @@ class UserController extends Controller
             $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $password);
 
-            $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find(1);
+            $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find($form->get('rol')->getData());
             $user->setPassword($encoded);
             $user->setRol($obj_rol);
             $date = date('Y-m-d h:i:s');
             $user->setCreateAt(new \Datetime($date));
             $user->setUpdateAt(new \Datetime($date));
-            //$user->setIsActive($form->get('is_active')->getData());
+            $user->setPasswordOri($password);
 
             $em->persist($user);
             $em->flush();
@@ -114,17 +114,26 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
 
+            $password = $editForm->get('password')->getData();
+            $encoder  = $this->container->get('security.password_encoder');
+            $encoded  = $encoder->encodePassword($user, $password);
+
+            $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find($editForm->get('rol')->getData());
+            $user->setPassword($encoded);
+            $user->setRol($obj_rol);
             $date = date('Y-m-d h:i:s');
             $user->setUpdateAt(new \Datetime($date));
+            $user->setPasswordOri($password);
 
             $em->persist($user);
             $em->flush();
 
             $message = $this->container->getParameter('massage_upd');
             $request->getSession()->getFlashBag()->add('success', $message);
-            //return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+
             return $this->redirectToRoute('user_index');
         }
 

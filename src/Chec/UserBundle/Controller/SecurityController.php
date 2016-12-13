@@ -40,7 +40,10 @@ class SecurityController extends Controller
      * @Route("/logout", name="chec_user_logout")
      * @Method("GET")
      */
-	public function logoutAction(){
+	public function logoutAction(Request $request){
 
+		$session = $request->getSession();
+
+    	$session->invalidate(); //here we can now clear the session.
 	}
 }

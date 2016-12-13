@@ -58,6 +58,27 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="password_ori", type="string", length=255, nullable=true)
+     */
+    private $password_ori;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_crea", type="string", length=255, nullable=true)
+     */
+    private $user_crea;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_update", type="string", length=255, nullable=true)
+     */
+    private $user_update;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Rol", inversedBy="user")
      * @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
      */
@@ -68,14 +89,21 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $is_active;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="create_at", type="datetime")
+     * @ORM\Column(name="create_at",nullable=true, type="datetime")
      */
     private $create_at;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_at",nullable=true, type="datetime")
+     */
+    private $update_at;
 
     /**
      * @ORM\OneToMany(targetEntity="Chec\RegBundle\Entity\Asistencia", mappedBy="user")
@@ -99,7 +127,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         //$this->tasks = new ArrayCollection();
-        $this->isActive = true;
+        $this->is_active = true;
     }
 
     /**
@@ -233,27 +261,51 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set isActive
+     * Set passwordOri
      *
-     * @param boolean $isActive
+     * @param string $passwordOri
      *
      * @return User
      */
-    public function setIsActive($isActive)
+    public function setPasswordOri($passwordOri)
     {
-        $this->isActive = $isActive;
+        $this->password_ori = $passwordOri;
 
         return $this;
     }
 
     /**
-     * Get isActive
+     * Get passwordOri
+     *
+     * @return string
+     */
+    public function getPasswordOri()
+    {
+        return $this->password_ori;
+    }
+
+    /**
+     * Set is_active
+     *
+     * @param boolean $is_active
+     *
+     * @return User
+     */
+    public function setIsActive($is_active)
+    {
+        $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    /**
+     * Get is_active
      *
      * @return boolean
      */
     public function getIsActive()
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 
     /**
@@ -278,6 +330,30 @@ class User implements AdvancedUserInterface, \Serializable
     public function getCreateAt()
     {
         return $this->create_at;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return User
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->update_at = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->update_at;
     }
 
     /**
@@ -326,7 +402,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
+            $this->is_active
         ));
     }
     /** @see \Serializable::unserialize() */
@@ -336,7 +412,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
+            $this->is_active
         ) = unserialize($serialized);
     }
 
@@ -357,7 +433,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 
     /**
@@ -391,5 +467,71 @@ class User implements AdvancedUserInterface, \Serializable
     public function getAsistencia()
     {
         return $this->asistencia;
+    }
+
+    /**
+     * Add asistencia_create_user
+     *
+     * @param \Chec\RegBundle\Entity\Asistencia $asistenciaCreateUser
+     * @return User
+     */
+    public function addAsistenciaCreateUser(\Chec\RegBundle\Entity\Asistencia $asistenciaCreateUser)
+    {
+        $this->asistencia_create_user[] = $asistenciaCreateUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove asistencia_create_user
+     *
+     * @param \Chec\RegBundle\Entity\Asistencia $asistenciaCreateUser
+     */
+    public function removeAsistenciaCreateUser(\Chec\RegBundle\Entity\Asistencia $asistenciaCreateUser)
+    {
+        $this->asistencia_create_user->removeElement($asistenciaCreateUser);
+    }
+
+    /**
+     * Get asistencia_create_user
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAsistenciaCreateUser()
+    {
+        return $this->asistencia_create_user;
+    }
+
+    /**
+     * Add asistencia_update_user
+     *
+     * @param \Chec\RegBundle\Entity\Asistencia $asistenciaUpdateUser
+     * @return User
+     */
+    public function addAsistenciaUpdateUser(\Chec\RegBundle\Entity\Asistencia $asistenciaUpdateUser)
+    {
+        $this->asistencia_update_user[] = $asistenciaUpdateUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove asistencia_update_user
+     *
+     * @param \Chec\RegBundle\Entity\Asistencia $asistenciaUpdateUser
+     */
+    public function removeAsistenciaUpdateUser(\Chec\RegBundle\Entity\Asistencia $asistenciaUpdateUser)
+    {
+        $this->asistencia_update_user->removeElement($asistenciaUpdateUser);
+    }
+
+    /**
+     * Get asistencia_update_user
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAsistenciaUpdateUser()
+    {
+        return $this->asistencia_update_user;
     }
 }
