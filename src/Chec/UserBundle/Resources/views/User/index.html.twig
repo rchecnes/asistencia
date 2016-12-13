@@ -5,10 +5,22 @@
 <div class="table-responsive">
     
     {% for flashMessage in app.session.flashbag.get('success') %}
-        <p class="alert alert-success">{{ flashMessage }}</p>
+        <div class="alert alert-success">
+            <button class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+            <i class="ace-icon fa fa-hand-o-right"></i>
+            {{ flashMessage }}
+        </div>
     {% endfor %}
     {% for flashMessage in app.session.flashbag.get('error') %}
-        <p class="alert alert-danger">{{ flashMessage }}</p>
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+            <i class="ace-icon fa fa-hand-o-right"></i>
+            {{ flashMessage }}
+        </div>
     {% endfor %}
 
     <div class="count align-right">
@@ -44,8 +56,8 @@
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.rol.description}}</td>
-                <td> 
-                    <a class="btn btn-sm btn-info" href="{{ path('user_show', { 'id': user.id }) }}">
+                <td>
+                    <a role="button" class="btn btn-sm btn-info" href="#show_user_{{c}}" data-toggle="modal">
                         <i class="ace-icon fa fa-eye"></i>&nbsp;Ver
                     </a>
                     <a class="btn btn-sm btn btn-primary" href="{{ path('user_edit', { 'id': user.id }) }}">
@@ -54,6 +66,37 @@
                     <a class="btn btn-sm btn-danger" href="{{ path('user_edit', { 'id': user.id }) }}">
                         <i class="ace-icon fa fa-arrow-circle-o-down"></i>&nbsp;Eliminar
                     </a>
+                    <!--Modal-->
+                    <div id="show_user_{{c}}" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h3 class="smaller lighter blue no-margin">Información detallada del usuario</h3>
+                                </div>
+                                <div class="modal-body">
+                                   <table class="table table-bordered table-hover">
+                                       <tr><th>Nombre de usuario: </th><td>{{user.username}}</td></tr>
+                                       <tr><th>Nombres: </th><td>{{user.firstname}}</td></tr>
+                                       <tr><th>Apellidos: </th><td>{{user.lastname}}</td></tr>
+                                       <tr><th>Correo: </th><td>{{user.email}}</td></tr>
+                                       <tr><th>Rol: </th><td>{{user.rol.description}}</td></tr>
+                                       <tr><th>Activo: </th><td>{%if user.isactive==true%}Si{%else%}No{% endif%}</td></tr>
+                                       <tr><th>Password incriptado: </th><td>{{user.password}}</td></tr>
+                                       <tr><th>Password original: </th><td>{{user.passwordori}}</td></tr>
+                                       <tr><th>Fecha de creación: </th><td>{{user.createat|date("m/d/Y")}}</td></tr>
+                                       <tr><th>Fecha de modificación: </th><td>{{user.updateat|date("m/d/Y")}}</td></tr>
+                                   </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+                                        <i class="ace-icon fa fa-times"></i>
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             {%set c=c+1%}

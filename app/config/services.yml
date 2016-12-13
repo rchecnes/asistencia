@@ -8,3 +8,5 @@ services:
         public: false
         tags:
              - { name: twig.extension }
+    chec.reg.util:
+        class: Chec\RegBundle\Util\Util

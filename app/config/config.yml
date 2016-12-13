@@ -9,8 +9,8 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    massage_sav: "Se Grabo el registro exitosamente"
-    massage_upd: "Se Edito el registro exitosamente"
+    massage_sav: "El registro se creó exitosamente"
+    massage_upd: "El registro se editó exitosamente"
 
 framework:
     #esi:             ~
