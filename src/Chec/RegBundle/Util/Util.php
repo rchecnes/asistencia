@@ -3,8 +3,14 @@ namespace Chec\RegBundle\Util;
 
 class Util
 {
-    public function saludo($string)
+	public function __construct()
     {
-        echo $saludo;
+        $this->em   = $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
+        $this->conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
+    }
+
+    public function saludo($message)
+    {
+        return $message;
     }
 }

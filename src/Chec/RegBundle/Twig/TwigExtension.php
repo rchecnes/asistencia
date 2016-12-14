@@ -5,6 +5,15 @@ use Symfony\Cmf\Bundle\CoreBundle\Templating\Helper\CmfHelper;
 
 class TwigExtension extends \Twig_Extension
 {
+    private $conn;
+    private $em;
+
+    public function __construct()
+    {
+        $this->em   = $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
+        $this->conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
+    }
+
     public function getFilters()
     {
         return array(
@@ -17,6 +26,7 @@ class TwigExtension extends \Twig_Extension
         return array(
             'getAvanceHoras'  => new \Twig_Function_Method($this, 'getAvanceHoras'),
             'getPorcentajeAvance'  => new \Twig_Function_Method($this, 'getPorcentajeAvance'),
+            'getMenuXRol'  => new \Twig_Function_Method($this, 'getMenuXRol'),
         );
 
         
@@ -118,7 +128,50 @@ class TwigExtension extends \Twig_Extension
         
     }
 
-    
+    private function genSubMenu($rol,$padre){
+        //$conn = $this->getContainer()->get('database_connection');
+        $sql = "SELECT * FROM menu WHERE padre=$padre";
+        $resp = $this->conn->executeQuery($sql)->fetchAll();
+        
+        $html = '';
+
+        foreach ($resp as $key => $row) {
+
+            $html.= '<li><a><i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span></a></li>';
+            
+        }
+
+        return $html;
+    }
+
+    public function getMenuXRol($rol)
+    {
+        $sql = "SELECT * FROM menu WHERE padre=0";
+        $resp = $this->conn->executeQuery($sql)->fetchAll();
+        
+        $html = '<ul class="nav nav-list">';
+
+        foreach ($resp as $key => $row) {
+
+            if ($row['tiene_hijo'] == 0) {
+                $html .= '<li><a><i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span></a></li>';
+            }else{
+                $html .= '<li>';
+                $html .= '<a class="dropdown-toggle">';
+                $html .= '<i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span>';
+                $html .= '<b class="arrow fa fa-angle-down"></b>';
+                $html .= '</a>';
+                $html .= '<ul class="submenu nav-show">';
+                $html .= $this->genSubMenu('ROLE_ADMIN',$row['id']);
+                $html .= '</ul>';
+                $html .= '<li>';
+            }
+        }
+
+        $html .= "</ul><br><br>";
+
+        return $html;
+    }
 
     public function getName()
     {

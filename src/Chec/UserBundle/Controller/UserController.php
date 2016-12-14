@@ -25,7 +25,7 @@ class UserController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $dql   = "SELECT u FROM ChecUserBundle:User u";
         $query = $em->createQuery($dql);
 

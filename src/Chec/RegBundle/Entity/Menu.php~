@@ -24,14 +24,14 @@ class Menu
     /**
      * @var int
      *
-     * @ORM\Column(name="padre", type="integer", options = {"comment" = "Padre del sub menu", "default"=0})
+     * @ORM\Column(name="padre", type="integer")
      */
     private $padre;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="tiene_hijo", type="boolean", options = {"comment" = "Si tiene hijo", "default"=0})
+     * @ORM\Column(name="tiene_hijo", type="boolean")
      */
     private $tiene_hijo;
 
@@ -162,28 +162,5 @@ class Menu
     {
         return $this->estado;
     }
-
-    /**
-     * Set tieneHijo
-     *
-     * @param boolean $tieneHijo
-     *
-     * @return Menu
-     */
-    public function setTieneHijo($tieneHijo)
-    {
-        $this->tiene_hijo = $tieneHijo;
-
-        return $this;
-    }
-
-    /**
-     * Get tieneHijo
-     *
-     * @return boolean
-     */
-    public function getTieneHijo()
-    {
-        return $this->tiene_hijo;
-    }
 }
+
