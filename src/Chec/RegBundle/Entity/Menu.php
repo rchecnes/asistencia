@@ -38,7 +38,7 @@ class Menu
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=60,)
      */
     private $nombre;
 
@@ -50,6 +50,20 @@ class Menu
     private $enlace;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="css_icono", type="string", length=60, nullable=true)
+     */
+    private $css_icono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nivel", type="string", length=60, nullable=true, options = {"comment" = "Nivel", "default"=0})
+     */
+    private $nivel;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="estado", type="boolean")
@@ -57,10 +71,12 @@ class Menu
     private $estado;
 
 
+    
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -84,11 +100,35 @@ class Menu
     /**
      * Get padre
      *
-     * @return int
+     * @return integer
      */
     public function getPadre()
     {
         return $this->padre;
+    }
+
+    /**
+     * Set tieneHijo
+     *
+     * @param boolean $tieneHijo
+     *
+     * @return Menu
+     */
+    public function setTieneHijo($tieneHijo)
+    {
+        $this->tiene_hijo = $tieneHijo;
+
+        return $this;
+    }
+
+    /**
+     * Get tieneHijo
+     *
+     * @return boolean
+     */
+    public function getTieneHijo()
+    {
+        return $this->tiene_hijo;
     }
 
     /**
@@ -140,6 +180,54 @@ class Menu
     }
 
     /**
+     * Set cssIcono
+     *
+     * @param string $cssIcono
+     *
+     * @return Menu
+     */
+    public function setCssIcono($cssIcono)
+    {
+        $this->css_icono = $cssIcono;
+
+        return $this;
+    }
+
+    /**
+     * Get cssIcono
+     *
+     * @return string
+     */
+    public function getCssIcono()
+    {
+        return $this->css_icono;
+    }
+
+    /**
+     * Set nivel
+     *
+     * @param string $nivel
+     *
+     * @return Menu
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+
+        return $this;
+    }
+
+    /**
+     * Get nivel
+     *
+     * @return string
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
      * Set estado
      *
      * @param boolean $estado
@@ -156,34 +244,10 @@ class Menu
     /**
      * Get estado
      *
-     * @return bool
+     * @return boolean
      */
     public function getEstado()
     {
         return $this->estado;
-    }
-
-    /**
-     * Set tieneHijo
-     *
-     * @param boolean $tieneHijo
-     *
-     * @return Menu
-     */
-    public function setTieneHijo($tieneHijo)
-    {
-        $this->tiene_hijo = $tieneHijo;
-
-        return $this;
-    }
-
-    /**
-     * Get tieneHijo
-     *
-     * @return boolean
-     */
-    public function getTieneHijo()
-    {
-        return $this->tiene_hijo;
     }
 }

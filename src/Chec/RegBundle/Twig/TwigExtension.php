@@ -2,16 +2,19 @@
 namespace Chec\RegBundle\Twig;
 
 use Symfony\Cmf\Bundle\CoreBundle\Templating\Helper\CmfHelper;
+use Symfony\Component\HttpFoundation\Request;
 
 class TwigExtension extends \Twig_Extension
 {
     private $conn;
     private $em;
+    private $url_base;
 
     public function __construct()
     {
-        $this->em   = $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
-        $this->conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
+        $this->em       = $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
+        $this->conn     = $GLOBALS['kernel']->getContainer()->get('database_connection');
+        $this->url_base = $GLOBALS['kernel']->getContainer()->get('request')->getBaseUrl();
     }
 
     public function getFilters()
@@ -128,49 +131,45 @@ class TwigExtension extends \Twig_Extension
         
     }
 
-    private function genSubMenu($rol,$padre){
-        //$conn = $this->getContainer()->get('database_connection');
+    public function getMenuXRol($padre=0)
+    {
         $sql = "SELECT * FROM menu WHERE padre=$padre";
         $resp = $this->conn->executeQuery($sql)->fetchAll();
-        
-        $html = '';
 
-        foreach ($resp as $key => $row) {
-
-            $html.= '<li><a><i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span></a></li>';
-            
-        }
-
-        return $html;
-    }
-
-    public function getMenuXRol($rol)
-    {
-        $sql = "SELECT * FROM menu WHERE padre=0";
-        $resp = $this->conn->executeQuery($sql)->fetchAll();
-        
-        $html = '<ul class="nav nav-list">';
-
+        if(empty($resp)){return "";}
+        $menu = "";
         foreach ($resp as $key => $row) {
 
             if ($row['tiene_hijo'] == 0) {
-                $html .= '<li><a><i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span></a></li>';
+                $enlace = ($row['enlace'] !='')?$row['enlace']:'#';
+                $menu .= "<li>";
+                $menu .= "<a href='".$this->url_base."/".$enlace."'>";
+                $menu .= "<i class='menu-icon fa fa-cogs fa-4x'></i><span class='menu-text'>".$row['nombre']."</span>";
+                $menu .= "</a>";
+                $menu .= "</li>";
+
             }else{
-                $html .= '<li>';
-                $html .= '<a class="dropdown-toggle">';
-                $html .= '<i class="menu-icon fa fa-cogs fa-4x"></i><span class="menu-text">'.$row['nombre'].'</span>';
-                $html .= '<b class="arrow fa fa-angle-down"></b>';
-                $html .= '</a>';
-                $html .= '<ul class="submenu nav-show">';
-                $html .= $this->genSubMenu('ROLE_ADMIN',$row['id']);
-                $html .= '</ul>';
-                $html .= '<li>';
+                $menu .= "<li>";
+                $menu .= "<a href='#' class='dropdown-toggle'>";
+                $menu .= "<i class='menu-icon fa fa-cogs fa-4x'></i><span class='menu-text'>".$row['nombre']."</span>";
+                $menu .= "<b class='arrow fa fa-angle-down'></b>";
+                $menu .= "</a>";
+                $menu .= $this->getMenuXRol($row['id']);
+                $menu .= "</li>";
             }
         }
 
-        $html .= "</ul><br><br>";
+        if ($padre ==0) {
+            $menu="<ul class='nav nav-list'>$menu</ul>";
+        }else{
+            $menu="<ul class='submenu nav-show'>$menu</ul>";
+        }
+        
 
-        return $html;
+        //if($padre==0){$menu="<div id='menu_cab'>$menu</div>";}
+        if($padre==0){$menu=$menu;}
+        
+        return $menu;
     }
 
     public function getName()
