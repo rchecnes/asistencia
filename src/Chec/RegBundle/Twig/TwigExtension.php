@@ -30,6 +30,7 @@ class TwigExtension extends \Twig_Extension
             'getAvanceHoras'  => new \Twig_Function_Method($this, 'getAvanceHoras'),
             'getPorcentajeAvance'  => new \Twig_Function_Method($this, 'getPorcentajeAvance'),
             'getMenuXRol'  => new \Twig_Function_Method($this, 'getMenuXRol'),
+            'getMenu'  => new \Twig_Function_Method($this, 'getMenu'),
         );
 
         
@@ -163,6 +164,46 @@ class TwigExtension extends \Twig_Extension
             $menu="<ul class='nav nav-list'>$menu</ul>";
         }else{
             $menu="<ul class='submenu nav-show'>$menu</ul>";
+        }
+        
+
+        //if($padre==0){$menu="<div id='menu_cab'>$menu</div>";}
+        if($padre==0){$menu=$menu;}
+        
+        return $menu;
+    }
+
+    public function getMenu($padre=0)
+    {
+        $sql = "SELECT * FROM menu WHERE padre=$padre AND estado=1";
+        $resp = $this->conn->executeQuery($sql)->fetchAll();
+
+        if(empty($resp)){return "";}
+        $menu = "";
+        foreach ($resp as $key => $row) {
+
+            if ($row['tiene_hijo'] == 0) {
+                $menu .= "<li>";
+                $menu .= "<a href='#' id='".$row['id']."' name='".$row['id']."'>";
+                $menu .= "<i class='fa  fa-file-code-o fa-4x'></i><span class='menu-text'>".$row['nombre']."</span>";
+                $menu .= "</a>";
+                $menu .= "</li>";
+
+            }else{
+                $menu .= "<li>";
+                $menu .= "<a href='#' id='".$row['id']."' name='".$row['id']."' class='dropdown-toggle'>";
+                $menu .= "<i class='fa  fa-folder-open-o fa-4x'></i><span class='menu-text'>".$row['nombre']."</span>";
+                $menu .= "<b class='arrow fa fa-plus'></b>";
+                $menu .= "</a>";
+                $menu .= $this->getMenu($row['id']);
+                $menu .= "</li>";
+            }
+        }
+
+        if ($padre ==0) {
+            $menu="<ul class=''>$menu</ul>";
+        }else{
+            $menu="<ul class=''>$menu</ul>";
         }
         
 
