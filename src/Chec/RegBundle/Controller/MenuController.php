@@ -2,7 +2,7 @@
 
 namespace Chec\RegBundle\Controller;
 
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -64,17 +64,17 @@ class MenuController extends Controller
      * Lists all Menu entities.
      *
      * @Route("/menuhijo", name="menu_hijo")
-     * @Method("POST | GET")
+     * @Method("POST")
      */
-    public function getHijoAction(Request $resquest){
+    public function getHijoAction(Request $request){
 
-        //$padre = $resquest->request()->get('padre');
+        $padre = $this->getRequest()->get('padre');;
         
         //$em    = $this->getDoctrine()->getManager();
         $conn = $this->get('database_connection');
 
         //$dql   = $em->getRepository('ChecRegBundle:Menu')->findBy(array('estado'=>1,'padre'=>$padre));
-        $sql = "SELECT * FROM menu WHERE estado=1";
+        $sql = "SELECT * FROM menu WHERE estado=1 AND padre=$padre";
         $resp = $conn->executeQuery($sql)->fetchAll();
 
         $data = array();
@@ -83,8 +83,8 @@ class MenuController extends Controller
             $data[] = $m;
         }
 
-        $response = new JsonResponse();
-        $response->setData($data);
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }

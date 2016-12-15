@@ -18,19 +18,53 @@
     <script type="text/javascript">
     $(document).ready(function(){
 
+        printHijo = function(data, padre){
+            //console.log(data);
+
+            html = '<ul>';
+            for (var i = 0; i < data.length; i++) {
+
+                if (data[i].tiene_hijo==1) {
+                    html += '<li id="item_'+data[i].id+'">';
+                    html += '<a href="#" id="link_'+data[i].id+'" class="padre">';
+                    html += '<i class="ace-icon fa fa-circle"></i>';
+                    html += '<span>'+data[i].nombre+'</span>';
+                    html += '</a>';
+                    html += '</li>';
+                }else{
+                    html += '<li id="item_'+data[i].id+'">';
+                    html += '<i class="ace-icon fa fa-circle-o"></i>';
+                    html += '<span>'+data[i].nombre+'</span>';
+                    html += '</li>';
+                }
+                
+            }
+            html += '</ul>';
+
+            $("#item_"+padre).append(html);
+
+            $(".padre").click();
+        }
+
+        
+
         $(".padre").on("click", function(){
-            
+        
             var node = $(this).attr('id').split('_');
 
             $.ajax({
                 type: 'POST',
-                url: '{{path("menu_hijo")}}',
+                url: "{{path('menu_hijo')}}",
                 data:{'padre':node[1]},
                 success: function(data){
-                    console.log(data)
+                    printHijo(data, node[1]);
                 }
             })
-        })
+        });
+        
+
+      
+        
 
     });
     </script>
