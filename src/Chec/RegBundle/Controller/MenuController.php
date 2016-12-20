@@ -38,24 +38,26 @@ class MenuController extends Controller
 
         $dql = $em->getRepository('ChecRegBundle:Menu')->findBy(array('estado'=>1,'padre'=>0));
 
-        $menu = '';
+        $menu = '<ul>';
 
         foreach ($dql as $key => $m) {
 
             if ($m->getTieneHijo() == 1) {
 
                 $menu .= '<li id="item_'.$m->getId().'"><a href="#" id="link_'.$m->getId().'" class="padre">';
-                $menu .= '<i class="ace-icon fa fa-circle"></i>';
-                $menu .= '<span>'.$m->getNombre().'</span>';
+                $menu .= '<i class="ace-icon fa fa-circle" onclick="MostrarHijo('.$m->getId().')"></i>';
+                $menu .= '<span onclick="Accion('.$m->getId().')">'.$m->getNombre().'</span>';
                 $menu .= '</a></li>';
             }else{
 
                 $menu .= '<li id="item_'.$m->getId().'">';
                 $menu .= '<i class="ace-icon fa fa-circle-o"></i>';
-                $menu .= '<span>'.$m->getNombre().'</span>';
+                $menu .= '<span onclick="Accion('.$m->getId().')">'.$m->getNombre().'</span>';
                 $menu .= '</li>';
             }
         }
+
+        $menu .= '</ul>';
 
         return $menu;
     }
