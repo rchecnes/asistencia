@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="{{asset('public/bootstrap3.3/css/bootstrap.min.css')}}">
+        <!--<link rel="stylesheet" type="text/css" href="{{asset('public/bootstrap3.3/css/bootstrap.min.css')}}">-->
         <link rel="stylesheet" type="text/css" href="{{asset('public/css/style_login.css')}}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -13,13 +13,14 @@
     <body>
 
         
-        <div>
+        <!--<div>
             <a href="{{path('chec_user_logout')}}">Logout</a>
-        </div>
+        </div>-->
         
-        <div class="container" id="main">
+        <div id="wrapper">
         {% block body %}{% endblock %}
         </div>
+
         
         {% block javascripts %}
         <script type="text/javascript" src="{{asset('public/js/jquery-3.1.0.min.js')}}"></script>

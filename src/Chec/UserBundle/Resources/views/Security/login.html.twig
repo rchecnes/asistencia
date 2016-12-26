@@ -7,7 +7,7 @@
 {% block body %}
 	{{ parent() }}
 
-<form action="{{ path('chec_user_login_check') }}" method="post" class="wpl-track-me"  name="loginform" id="loginform">
+<!--<form action="{{ path('chec_user_login_check') }}" method="post" class="wpl-track-me"  name="loginform" id="loginform">
 	
     <h1 class="title-login">Control De Asistencia</h1>
     {% if error %}
@@ -32,6 +32,31 @@
       <input type="hidden" name="_target_path" value="user_index" />
       <button type="submit" class="button-primary">Sign in</button>
     </p>
-</form>
+</form>-->
+
+
+  <div class="join">Acceso</div>
+  <div class="lock"></div>
+  <div class="clr"></div>
+  <div class="login-options">Ingresar Al Sistema Con</div>
+  <a class="twitter" href="#">Twitter</a>
+  <a class="facebook" href="#">Facebook</a>
+  <a class="google" href="#">Google+</a>
+  <div class="clr"><hr /></div>
+  <div class="mail-text">Ó</div>
+  <div class="forms">
+    <form action="{{ path('chec_user_login_check') }}" method="post" name="register">
+      <input name="user_name" type="text" value="Usuario" size="70" onClick="border: 1px solid #30a8da;" id="username"/>
+      <input name="email" type="text" value="Correo" size="70" onClick="border: 1px solid #30a8da;" id="mail"/>
+      <input name="password" type="password" value="Password" size="70" onClick="border: 1px solid #30a8da;" id="password"/>
+      <p class="login-submit">
+        <input type="hidden" name="_target_path" value="user_index" />
+        <button type="submit" class="button-primary">Sign in</button>
+      </p>
+    </form>
+  </div>
+  <a class="create-acc" href="#">Crear Cuenta</a>
+
+
 
 {% endblock %}
