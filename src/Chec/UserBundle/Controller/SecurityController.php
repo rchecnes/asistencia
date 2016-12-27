@@ -12,7 +12,7 @@ class SecurityController extends Controller
 
 	/**
      *
-     * @Route("/", name="chec_user_login")
+     * @Route("/login", name="chec_user_login")
      * @Method("GET")
      */
 	public function loginAction(Request $request){
@@ -20,6 +20,8 @@ class SecurityController extends Controller
 		$authenticationUtils = $this->get('security.authentication_utils');
 
 		$error = $authenticationUtils->getLastAuthenticationError();
+
+		ld($error);
 
 		$lastUsername = $authenticationUtils->getLastUsername();
 

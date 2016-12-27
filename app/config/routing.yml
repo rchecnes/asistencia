@@ -1,16 +1,15 @@
 chec_reg:
-    resource: "@ChecUserBundle/Controller/SecurityController.php"
-    type:     annotation
-    prefix:   /
-
-chec_user_user:
-    resource: "@ChecUserBundle/Controller/UserController.php"
+    resource: "@ChecRegBundle/Controller"
     type:     annotation
 
-#rch_user:
-#    resource: "@ChecUserBundle/Controller"
-#    type: annotation
+chec_user:
+    resource: "@ChecUserBundle/Controller"
+    type: annotation
 #    prefix: /
+
+#chec_user_user:
+#    resource: "@ChecUserBundle/Controller/UserController.php"
+#    type:     annotation
 
 #app:
 #    resource: "@AppBundle/Controller/"
