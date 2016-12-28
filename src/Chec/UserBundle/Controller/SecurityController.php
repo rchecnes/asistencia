@@ -18,17 +18,17 @@ class SecurityController extends Controller
      */
 	public function loginAction(Request $request){
 
-		/*$authenticationUtils = $this->get('security.authentication_utils');
+		$authenticationUtils = $this->get('security.authentication_utils');
 
 		$error = $authenticationUtils->getLastAuthenticationError();
 
-		ld($error);
+		//ld($error);
 
 		$lastUsername = $authenticationUtils->getLastUsername();
 
-		return $this->render('ChecUserBundle:Security:login.html.twig',array('last_username'=>$lastUsername,'error'=>$error));*/
+		return $this->render('ChecUserBundle:Security:login.html.twig',array('last_username'=>$lastUsername,'error'=>$error));
 
-        //Nueva forma de atenticacion
+        /*//Nueva forma de atenticacion
         $session = $request->getSession();
  
         // get the login error if there is one
@@ -47,7 +47,7 @@ class SecurityController extends Controller
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
             )
-        );
+        );*/
 	}
 
 

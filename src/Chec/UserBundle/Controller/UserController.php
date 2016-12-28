@@ -24,6 +24,8 @@ class UserController extends Controller
      */
     public function indexAction(Request $request)
     {
+        //$user = $this->container->get('security.context')->getToken()->getUser();
+        //ld($user);exit();
         $em = $this->getDoctrine()->getManager();
         
         $dql   = "SELECT u FROM ChecUserBundle:User u";
