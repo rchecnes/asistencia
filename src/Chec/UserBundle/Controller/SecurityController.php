@@ -36,7 +36,9 @@ class SecurityController extends Controller
             $error = $request->attributes->get(
                 SecurityContext::AUTHENTICATION_ERROR
             );
+            ld("Lllega arriba");
         } else {
+            ld("Lllega abajo");
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
