@@ -32,6 +32,13 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="first_name", type="string", length=255)
      */
     private $first_name;
@@ -114,6 +121,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         //$this->tasks = new ArrayCollection();
         $this->is_active = true;
+        $this->salt = md5(uniqid(null, true));
     }
 
     /**
@@ -522,4 +530,18 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
 }

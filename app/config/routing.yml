@@ -7,6 +7,13 @@ chec_user:
     type: annotation
 #    prefix: /
 
+login:
+    pattern:   /login
+    defaults:  { _controller: ChecSecurityBundle:Security:login }
+login_check:
+    pattern:   /login_check
+
+
 #chec_user_user:
 #    resource: "@ChecUserBundle/Controller/UserController.php"
 #    type:     annotation

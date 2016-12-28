@@ -2,6 +2,11 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
+    encoders:
+        Chec\UserBundle\Entity\User:
+            algorithm: bcrypt #sha1
+            cost: 12
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         our_db_provider:
@@ -40,10 +45,7 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-    encoders:
-        Chec\UserBundle\Entity\User:
-            algorithm: bcrypt
-            cost: 12
+    
 
     #access_control:
     #    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
