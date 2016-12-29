@@ -14,7 +14,8 @@ class TwigExtension extends \Twig_Extension
     {
         $this->em       = $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
         $this->conn     = $GLOBALS['kernel']->getContainer()->get('database_connection');
-        $this->url_base = $GLOBALS['kernel']->getContainer()->get('request')->getBaseUrl();
+        //$this->url_base = $GLOBALS['kernel']->getContainer()->get('request')->getBaseUrl();
+        $this->url_base='';
     }
 
     public function getFilters()

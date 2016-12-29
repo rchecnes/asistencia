@@ -51,11 +51,11 @@ security:
     #    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     #    - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
     #    - { path: ^/user, roles: ROLE_ADMIN }
-    #    - { path: ^/asistencia, roles: ROLE_ADMIN }
-    #    - { path: ^/task/index, roles: ROLE_ADMIN }
-    #    - { path: ^/task/add, roles: ROLE_ADMIN }
-    #    - { path: ^/task/edit, roles: ROLE_ADMIN }
-    #    - { path: ^/task/view, roles: [ROLE_ADMIN] }
-    #    - { path: ^/task/delete, roles: ROLE_ADMIN } 
-    #    - { path: ^/task/custom, roles: ROLE_ADMIN } 
-    #    - { path: ^/task/process, roles: ROLE_ADMIN }
+    #    - { path: ^/asistencia, roles: IS_AUTHENTICATED_FULLY }
+    #    - { path: ^/task/index, roles: IS_AUTHENTICATED_FULLY }
+    #    - { path: ^/task/add, roles: IS_AUTHENTICATED_FULLY }
+    #    - { path: ^/task/edit, roles: IS_AUTHENTICATED_FULLY }
+    #    - { path: ^/task/view, roles: [IS_AUTHENTICATED_FULLY] }
+    #    - { path: ^/task/delete, roles: IS_AUTHENTICATED_FULLY } 
+    #    - { path: ^/task/custom, roles: IS_AUTHENTICATED_FULLY } 
+    #    - { path: ^/task/process, roles: IS_AUTHENTICATED_FULLY }
