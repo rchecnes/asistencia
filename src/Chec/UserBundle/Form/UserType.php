@@ -58,6 +58,11 @@ class UserType extends AbstractType
                 'label'         => 'Rol',
                 'empty_value'   => 'Seleccionar',
                 'required'      => true           
+            ))
+            ->add('url_image','file',array(
+                'label'         => 'Imagen',
+                'attr'          => array('class' => 'form-control','placeholder'   => 'Buscar Imagen'),
+                //'required'      => true,
             ));
     }
     

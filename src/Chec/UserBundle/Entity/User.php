@@ -72,6 +72,13 @@ class User implements AdvancedUserInterface, \Serializable
     private $password_ori;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url_image", type="string", length=255, nullable=true)
+     */
+    private $url_image;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Rol", inversedBy="user")
      * @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
      */
@@ -543,5 +550,29 @@ class User implements AdvancedUserInterface, \Serializable
         $this->salt = $salt;
 
         return $this;
+    }
+
+    /**
+     * Set urlImage
+     *
+     * @param string $urlImage
+     *
+     * @return User
+     */
+    public function setUrlImage($urlImage)
+    {
+        $this->url_image = $urlImage;
+
+        return $this;
+    }
+
+    /**
+     * Get urlImage
+     *
+     * @return string
+     */
+    public function getUrlImage()
+    {
+        return $this->url_image;
     }
 }

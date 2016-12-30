@@ -86,7 +86,7 @@
                                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                                         <img class="nav-user-photo" src="{{asset('public/img/foto-richard.png')}}" alt="Jason's Photo" />
                                         <span class="user-info">
-                                            <small>{{ app.user.firstname }},</small>
+                                            <small>{#{ app.user.firstname }#}Checnes,</small>
                                             Jason
                                         </span>
 
@@ -102,7 +102,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="profile.html">
+                                            <a href="{{ path('user_edit', {'id': 1}) }}">
                                                 <i class="ace-icon fa fa-user"></i>
                                                 Profile
                                             </a>

@@ -117,6 +117,10 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
+            $imagen = $editForm->get('url_image');
+            ld($imagen);
+            exit();
+
             $em = $this->getDoctrine()->getManager();
 
             $password = $editForm->get('password')->getData();
