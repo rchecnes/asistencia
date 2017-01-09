@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
+use Facebook\Facebook;
 
 class SecurityController extends Controller
 {
@@ -20,34 +21,29 @@ class SecurityController extends Controller
 
 		$authenticationUtils = $this->get('security.authentication_utils');
 
-		$error = $authenticationUtils->getLastAuthenticationError();
+		$error               = $authenticationUtils->getLastAuthenticationError();
 
-		//ld($error);
+        $lastUsername        = $authenticationUtils->getLastUsername();
 
-		$lastUsername = $authenticationUtils->getLastUsername();
+        //Get params facebook
+        $fb = new Facebook([
+          'app_id'     => '1656097854682893',
+          'app_secret' => 'ef067760eccd5aaf804137eaa5e168e9',
+          //'default_graph_version' => 'v2.5',
+        ]);
 
-		return $this->render('ChecUserBundle:Security:login.html.twig',array('last_username'=>$lastUsername,'error'=>$error));
+        $helper      = $fb->getRedirectLoginHelper();
+        $permissions = ['email', 'user_likes']; // optional
+        //$permissions = ['email', 'user_likes','publish_actions','user_managed_groups']; // optional
+        $loginUrl    = $helper->getLoginUrl('http://localhost/asistencia/web/app_dev.php/check_facebook', $permissions);
+        
+        $data['last_username'] = $lastUsername;
+        $data['error']         = $error;
+        $data['url_facebook']  = $loginUrl;
 
-        /*//Nueva forma de atenticacion
-        $session = $request->getSession();
- 
-        // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                SecurityContext::AUTHENTICATION_ERROR
-            );
-            ld("Lllega arriba");
-        } else {
-            ld("Lllega abajo");
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        }
- 
-        return $this->render('ChecUserBundle:Security:login.html.twig',array(
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error,
-            )
-        );*/
+
+		return $this->render('ChecUserBundle:Security:login.html.twig',$data);
+
 	}
 
 
@@ -71,4 +67,53 @@ class SecurityController extends Controller
 
     	$session->invalidate(); //here we can now clear the session.
 	}
+
+    /**
+     *
+     * @Route("/check_facebook", name="chec_check_facebook")
+     * @Method("GET")
+     */
+    public function loginFacebookAction(Request $request){
+
+        $fb = new Facebook([
+          'app_id'     => '1656097854682893',
+          'app_secret' => 'ef067760eccd5aaf804137eaa5e168e9',
+          'default_graph_version' => 'v2.5',
+          'persistent_data_handler'=>'session'
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+
+        if (isset($_SESSION['facebook_access_token'])) {
+
+            $accessToken = $_SESSION['facebook_access_token'];
+
+        }else{
+            $accessToken = $helper->getAccessToken();
+
+            $_SESSION['facebook_access_token'] = (string) $accessToken;
+        }
+        
+
+        if (isset($accessToken)) {
+            //ld($_REQUEST['code']);
+        }
+
+       
+
+        //Obteniendo datos del usuario
+        //$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+        //$response = $fb->get('/me');
+        //$userNode = $response->getGraphUser();
+
+        $response = $fb->get('/me?fields=id,name,work,website,email,first_name,birthday,last_name,picture', $accessToken);
+        //ld($response);
+        $user = $response->getGraphUser();
+        //ld($user->getGeneralInfo());
+        echo "<img src='".$user->getPicture()->getUrl()."'></img>";
+        //ld('Logged in as ' . $userNode->getName());
+        //ld($user);
+       
+        
+    }
 }
