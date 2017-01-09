@@ -35,7 +35,7 @@ class SecurityController extends Controller
         $helper      = $fb->getRedirectLoginHelper();
         $permissions = ['email', 'user_likes']; // optional
         //$permissions = ['email', 'user_likes','publish_actions','user_managed_groups']; // optional
-        $loginUrl    = $helper->getLoginUrl('http://localhost/asistencia/web/app_dev.php/check_facebook', $permissions);
+        $loginUrl    = $helper->getLoginUrl('http://localhost:8082/asistencia/web/app_dev.php/check_facebook', $permissions);
         
         $data['last_username'] = $lastUsername;
         $data['error']         = $error;
@@ -73,17 +73,17 @@ class SecurityController extends Controller
      * @Route("/check_facebook", name="chec_check_facebook")
      * @Method("GET")
      */
-    public function loginFacebookAction(Request $request){
+    public function checkFacebookAction(Request $request){
 
         $fb = new Facebook([
           'app_id'     => '1656097854682893',
           'app_secret' => 'ef067760eccd5aaf804137eaa5e168e9',
-          'default_graph_version' => 'v2.5',
-          'persistent_data_handler'=>'session'
+          //'default_graph_version' => 'v2.5',
+          //'persistent_data_handler'=>'session'
         ]);
 
         $helper = $fb->getRedirectLoginHelper();
-
+       
         if (isset($_SESSION['facebook_access_token'])) {
 
             $accessToken = $_SESSION['facebook_access_token'];
@@ -113,7 +113,5 @@ class SecurityController extends Controller
         echo "<img src='".$user->getPicture()->getUrl()."'></img>";
         //ld('Logged in as ' . $userNode->getName());
         //ld($user);
-       
-        
     }
 }
