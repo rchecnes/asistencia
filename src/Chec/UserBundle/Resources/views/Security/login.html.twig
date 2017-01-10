@@ -29,19 +29,18 @@
                     </div>
                 </div><br>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
                         <input type="hidden" name="_target_path" value="user_index" />
-                    </div>
-                    <div class="col-lg-6">
-                        <a href="{{url_facebook}}" class="btn btn-lg">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>Facebook
-                        </a>
                     </div>
                 </div>
                 
                 <br>
                 <p><label><input type="checkbox" name="rememberme" id="rememberme" value="forever">Recordar</p></label>
+                <ul>
+                    <li><a href="{{path('user_new_anonimo')}}">Registrarse</a></li>
+                    <li><a href="{{url_facebook}}">Registrarse con facebook</a></li>
+                </ul>
               </form>
             </div>
         </div>

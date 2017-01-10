@@ -1,0 +1,90 @@
+{% extends '::login.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Nuevo Uusario</h1>
+            
+            <div class="account-wall">
+                <form id="form_user" class="form-sinup" name="form_user" action="{{ path('user_new_anonimo') }}" method="POST">
+                    <div class="form-group">
+                        <label for="">Nombre de usuario:</label>
+                        {{ form_widget(form.user_name) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre:</label>
+                        {{ form_widget(form.first_name) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido:</label>
+                        {{ form_widget(form.last_name) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Correo:</label>
+                        {{ form_widget(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Contraseña:</label>
+                        {{ form_widget(form.password) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Repetir Contraseña:</label>
+                        {{ form_widget(form.password_veri) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Fecha de nacimiento:</label>
+                        <table>
+                            <tr>
+                                <td>{{ form_widget(form.anio) }}</td>
+                                <td>{{ form_widget(form.mes) }}</td>
+                                <td>{{ form_widget(form.dia) }}</td>
+                            </tr>
+                        </table>
+                        
+                        
+                        
+                    </div>
+                    
+                    {{ form_widget(form._token) }}
+
+                    <p class="text-center">
+                        <button type="submit" class="btn btn-success btn-lg">Crear</button>
+                        <a class="btn btn-lg btn-default" role="button" href="{{ path('chec_user_login') }}">Cancelar</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
+    
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#form_user").submit(function(e) {
+            var self = this;
+            e.preventDefault();
+
+            //validamos la contraseña
+            var pass1 = $("#user_password").val();
+            var pass2 = $("#user_password_veri").val();
+
+            if (pass1 != '' && pass2 !='') {
+                if (pass1 == pass2) {
+                    self.submit();
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        });
+    })
+</script>
+{% endblock %}
+
+

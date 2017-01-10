@@ -87,6 +87,50 @@ class UserController extends Controller
         ));
     }
 
+	/**
+     * Creates a new User entity.
+     *
+     * @Route("/newanonimo", name="user_new_anonimo")
+     * @Method({"GET", "POST"})
+     */
+    public function newAnonimoAction(Request $request)
+    {   
+
+        $user = new User();
+        $form = $this->createForm('Chec\UserBundle\Form\UserAnonimoType', $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $password = $form->get('password')->getData();
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $password);
+
+            $obj_rol = $em->getRepository('ChecUserBundle:Rol')->find(2);
+            $user->setPassword($encoded);
+            $user->setRol($obj_rol);
+            $date = date('Y-m-d h:i:s');
+            $user->setCreateAt(new \Datetime($date));
+            $user->setUpdateAt(new \Datetime($date));
+            $user->setPasswordOri($password);
+
+            $em->persist($user);
+            $em->flush();
+
+            $message = $this->container->getParameter('massage_sav');
+            $request->getSession()->getFlashBag()->add('success', $message);
+            //return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('chec_user_login');
+        }
+
+        return $this->render('ChecUserBundle:User:newAnonimo.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
+            'title'=>'Nuevo Usuario'
+        ));
+    }
+
     /**
      * Finds and displays a User entity.
      *
