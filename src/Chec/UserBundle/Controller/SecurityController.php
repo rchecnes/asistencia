@@ -25,8 +25,12 @@ class SecurityController extends Controller
 
         $lastUsername        = $authenticationUtils->getLastUsername();
 
+        $data['last_username'] = $lastUsername;
+        $data['error']         = $error;
+        $data['url_facebook']  = '';
+
         //Get params facebook
-        $fb = new Facebook([
+        /*$fb = new Facebook([
           'app_id'     => '1656097854682893',
           'app_secret' => 'ef067760eccd5aaf804137eaa5e168e9',
           //'default_graph_version' => 'v2.5',
@@ -39,7 +43,7 @@ class SecurityController extends Controller
         
         $data['last_username'] = $lastUsername;
         $data['error']         = $error;
-        $data['url_facebook']  = $loginUrl;
+        $data['url_facebook']  = $loginUrl;*/
 
 
 		return $this->render('ChecUserBundle:Security:login.html.twig',$data);
